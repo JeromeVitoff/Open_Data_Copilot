@@ -1,0 +1,65 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# === Environnements virtuels ===
+.venv/
+venv/
+ENV/
+env/
+*.env
+.env.local
+.env.*.local
+
+# === Jupyter notebooks ===
+.ipynb_checkpoints
+*.nbconvert.ipynb
+
+# === Logs & cache ===
+*.log
+*.out
+*.err
+*.sqlite
+*.db
+*.pkl
+*.h5
+*.ckpt
+.cache/
+*.DS_Store
+
+# === IDE / OS ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+.DS_Store
+
+# === Data ===
+data/
+datasets/
+*.csv
+*.tsv
+*.json
+*.parquet
+*.xlsx
+
+# === Models ===
+models/
+*.bin
+*.pt
+*.pth
+*.onnx
+*.joblib
+
+# === API Keys & secrets ===
+config.yaml
+secrets.json
+apikeys.json
