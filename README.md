@@ -21,3 +21,11 @@ Mon chatbot RAG cherche dans des données officielles (OMS, SPF, OpenAQ…), et 
 
 -	Chatbots classiques ne savent pas toujours ce qui est récent (leurs connaissances sont limitées à la date d’entraînement).
 -	Mon projet avec API : peut interroger les datasets en temps réel (OpenAQ pour pollution, SPF pour santé).
+
+# Données utilisées (APIs santé + environnement)
+
+# Méthodes comparées (baseline, RAG généraliste, RAG spécialisé)
+
+# Instructions d’installation et d’exécution
+
+
