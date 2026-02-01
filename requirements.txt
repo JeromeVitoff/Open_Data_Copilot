@@ -1,178 +1,124 @@
 # ═══════════════════════════════════════════════════════════════
-# OpenDataCopilot - .gitignore
+# OpenDataCopilot - Requirements
+# Master 2 Data Science - RAG Comparatif sur Données Ouvertes
 # ═══════════════════════════════════════════════════════════════
 
 # ─────────────────────────────────────────────────────────────────
-# Python
+# Core LLM & RAG Framework
 # ─────────────────────────────────────────────────────────────────
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+langchain>=0.1.0
+langchain-openai>=0.0.5
+langchain-community>=0.0.20
+openai>=1.12.0
 
 # ─────────────────────────────────────────────────────────────────
-# Virtual Environments
+# Vector Stores
 # ─────────────────────────────────────────────────────────────────
-.venv/
-venv/
-ENV/
-env/
-.env
-.env.local
-.env.*.local
-
-# Keep .env.example
-!.env.example
+faiss-cpu>=1.7.4          # Baseline vector store (CPU pour Mac M2)
+chromadb>=0.4.22          # Optimized vector store
 
 # ─────────────────────────────────────────────────────────────────
-# Jupyter Notebooks
+# Embeddings
 # ─────────────────────────────────────────────────────────────────
-.ipynb_checkpoints/
-*.nbconvert.ipynb
-*/.ipynb_checkpoints/*
+sentence-transformers>=2.2.2    # SBERT multilingue
+tiktoken>=0.5.2                 # Tokenizer OpenAI
 
 # ─────────────────────────────────────────────────────────────────
-# IDE & Editors
+# Web Framework
 # ─────────────────────────────────────────────────────────────────
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-*.sublime-workspace
-*.sublime-project
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
 
 # ─────────────────────────────────────────────────────────────────
-# OS Files
+# Frontend
 # ─────────────────────────────────────────────────────────────────
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+streamlit>=1.31.0
 
 # ─────────────────────────────────────────────────────────────────
-# Data - Raw (large files, downloaded)
+# Data Processing
 # ─────────────────────────────────────────────────────────────────
-data/raw/
-data/processed/*.db
-data/processed/*.sqlite
-data/processed/*.parquet
-
-# Keep processed directory structure
-!data/processed/.gitkeep
+pandas>=2.1.0
+numpy>=1.24.0
+pyarrow>=14.0.0           # Parquet support
 
 # ─────────────────────────────────────────────────────────────────
-# Vector Stores (large binary files)
+# Database
 # ─────────────────────────────────────────────────────────────────
-data/vectorstore/faiss/*.faiss
-data/vectorstore/faiss/*.pkl
-data/vectorstore/chroma/
-
-# Keep directory structure
-!data/vectorstore/faiss/.gitkeep
-!data/vectorstore/chroma/.gitkeep
+sqlalchemy>=2.0.25
+aiosqlite>=0.19.0         # Async SQLite
 
 # ─────────────────────────────────────────────────────────────────
-# Cache
+# HTTP & API Clients
 # ─────────────────────────────────────────────────────────────────
-.cache/
-*.cache
-.diskcache/
+httpx>=0.26.0             # Async HTTP client
+requests>=2.31.0
+aiohttp>=3.9.0
 
 # ─────────────────────────────────────────────────────────────────
-# Logs
+# Visualization
 # ─────────────────────────────────────────────────────────────────
-*.log
-logs/
-*.out
-*.err
+plotly>=5.18.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
 
 # ─────────────────────────────────────────────────────────────────
-# Models (large binary files)
+# Configuration & Environment
 # ─────────────────────────────────────────────────────────────────
-*.bin
-*.pt
-*.pth
-*.onnx
-*.joblib
-*.pkl
-*.h5
-*.ckpt
-*.safetensors
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+tomli>=2.0.1              # TOML parsing (Python < 3.11)
 
 # ─────────────────────────────────────────────────────────────────
-# Test & Coverage
+# Text Processing & NLP
 # ─────────────────────────────────────────────────────────────────
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
-coverage.xml
-*.cover
-*.py,cover
+beautifulsoup4>=4.12.0    # HTML parsing
+lxml>=5.1.0               # XML parsing
+unidecode>=1.3.8          # Unicode normalization
 
 # ─────────────────────────────────────────────────────────────────
-# Type Checking
+# Evaluation & Metrics
 # ─────────────────────────────────────────────────────────────────
-.mypy_cache/
-.dmypy.json
-dmypy.json
+scikit-learn>=1.4.0       # Métriques ML
+rouge-score>=0.1.2        # ROUGE metrics
+bert-score>=0.3.13        # BERTScore
 
 # ─────────────────────────────────────────────────────────────────
-# Ruff
+# Testing
 # ─────────────────────────────────────────────────────────────────
-.ruff_cache/
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+httpx>=0.26.0             # Pour tests FastAPI
 
 # ─────────────────────────────────────────────────────────────────
-# Secrets & API Keys
+# Development & Code Quality
 # ─────────────────────────────────────────────────────────────────
-config.yaml
-secrets.json
-apikeys.json
-*.pem
-*.key
+ruff>=0.2.0               # Linter + Formatter (remplace black/flake8)
+mypy>=1.8.0               # Type checking
+pre-commit>=3.6.0
 
 # ─────────────────────────────────────────────────────────────────
-# Benchmark Results (regenerable)
+# Jupyter & Notebooks
 # ─────────────────────────────────────────────────────────────────
-evaluation/results/*.json
-evaluation/results/*.csv
-
-# Keep results directory
-!evaluation/results/.gitkeep
+jupyter>=1.0.0
+ipykernel>=6.29.0
+nbformat>=5.9.0
 
 # ─────────────────────────────────────────────────────────────────
-# Temporary Files
+# Logging & Monitoring
 # ─────────────────────────────────────────────────────────────────
-tmp/
-temp/
-*.tmp
-*.temp
-*.bak
+loguru>=0.7.2             # Better logging
+tqdm>=4.66.0              # Progress bars
 
 # ─────────────────────────────────────────────────────────────────
-# Documentation Build
+# Caching
 # ─────────────────────────────────────────────────────────────────
-docs/_build/
-site/
+diskcache>=5.6.3          # Cache local pour APIs
+
+# ─────────────────────────────────────────────────────────────────
+# Optional: Reranking (RAG optimisé)
+# ─────────────────────────────────────────────────────────────────
+# cohere>=4.47              # Reranking API (décommenter si clé API disponible)
+# flashrank>=0.2.0          # Local reranking (léger)
