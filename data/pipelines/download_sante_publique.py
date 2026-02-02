@@ -95,14 +95,14 @@ DATASETS = {
         "columns": ["dep", "date_de_passage", "sursaud_cl_age_corona", "nbre_pass_corona", "nbre_pass_tot"],
     },
     "covid_tests_dep": {
-        "name": "Tests de dépistage COVID-19 par département",
-        "description": "Nombre de tests réalisés et positifs par département",
-        "url": "https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675",
+        "name": "Tests de dépistage COVID-19 par département (SI-DEP)",
+        "description": "Indicateurs de surveillance virologique par département (depuis mai 2022)",
+        "url": "https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc",
         "format": "csv",
         "frequency": "daily",
-        "source": "Santé Publique France",
+        "source": "Santé Publique France - SI-DEP",
         "priority": 1,
-        "columns": ["dep", "jour", "P", "T", "cl_age90"],
+        "columns": ["dep", "jour", "pop", "P", "T", "Ti", "Tp", "cl_age90"],
     },
 
     # ─────────────────────────────────────────────────────────────

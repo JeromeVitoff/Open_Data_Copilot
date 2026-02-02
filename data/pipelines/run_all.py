@@ -117,7 +117,7 @@ def run_pollution_pipeline(
     """
     logger.info("")
     logger.info("╔" + "═" * 58 + "╗")
-    logger.info("║  PIPELINE POLLUTION (Airparif + OpenAQ)                  ║")
+    logger.info("║  PIPELINE POLLUTION (GÉOD'AIR + Airparif)                ║")
     logger.info("╚" + "═" * 58 + "╝")
 
     try:
@@ -152,7 +152,7 @@ def test_connections() -> dict[str, Any]:
     try:
         from data.pipelines.fetch_pollution import test_api_connection
 
-        for source in ["airparif", "openaq"]:
+        for source in ["geodair", "airparif", "openaq"]:
             success, message = test_api_connection(source)
             results[source] = {"success": success, "message": message}
             if success:
