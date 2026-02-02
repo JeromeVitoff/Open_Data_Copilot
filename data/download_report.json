@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-02-01T23:15:25.049882",
+  "results": {
+    "sante": {
+      "status": "success",
+      "pipeline": "sante",
+      "downloaded": 3,
+      "skipped": 0,
+      "failed": 1,
+      "details": {
+        "success": [
+          {
+            "dataset_id": "covid_hospitalisations",
+            "name": "Données hospitalières COVID-19",
+            "file": "/Users/jerome/Documents/University/Master2/PROJET /Open_Data_Copilot/data/raw/sante/covid_hospitalisations.csv",
+            "source": "Santé Publique France",
+            "status": "downloaded",
+            "size_bytes": 14291868,
+            "hash_md5": "7a97677bfd1688caa97248afecaf61e7"
+          },
+          {
+            "dataset_id": "covid_tests_dep",
+            "name": "Tests de dépistage COVID-19 par département",
+            "file": "/Users/jerome/Documents/University/Master2/PROJET /Open_Data_Copilot/data/raw/sante/covid_tests_dep.csv",
+            "source": "Santé Publique France",
+            "status": "downloaded",
+            "size_bytes": 395,
+            "hash_md5": "6bf0c070698ad9b0b1d7bca360f341ff"
+          },
+          {
+            "dataset_id": "sursaud_urgences",
+            "name": "Données quotidiennes urgences SOS Médecins",
+            "file": "/Users/jerome/Documents/University/Master2/PROJET /Open_Data_Copilot/data/raw/sante/sursaud_urgences.csv",
+            "source": "Santé Publique France - SurSaUD",
+            "status": "downloaded",
+            "size_bytes": 2784589,
+            "hash_md5": "ed7c21f3699a3719988e0bbdb1c20961"
+          }
+        ],
+        "failed": [
+          {
+            "dataset_id": "professionnels_sante_dep",
+            "name": "Effectifs des professionnels de santé par département",
+            "file": "/Users/jerome/Documents/University/Master2/PROJET /Open_Data_Copilot/data/raw/sante/professionnels_sante_dep.csv",
+            "source": "DREES",
+            "status": "failed",
+            "error": "Erreur HTTP 404"
+          }
+        ],
+        "skipped": [],
+        "total": 4
+      }
+    },
+    "pollution": {
+      "status": "success",
+      "pipeline": "pollution",
+      "files_created": 1,
+      "total_records": 761,
+      "failed": 0,
+      "details": {
+        "success": [
+          {
+            "source": "airparif",
+            "type": "indices",
+            "records": 761,
+            "file": "/Users/jerome/Documents/University/Master2/PROJET /Open_Data_Copilot/data/raw/pollution/airparif_indices.csv"
+          }
+        ],
+        "failed": [],
+        "total_records": 761
+      }
+    }
+  },
+  "summary": {
+    "total_pipelines": 2,
+    "successful": 2,
+    "failed": 0
+  }
+}
