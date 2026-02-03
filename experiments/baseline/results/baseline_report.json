@@ -1,0 +1,645 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-03T17:53:07.098119",
+    "model": "gpt-3.5-turbo",
+    "rag_type": "baseline_no_rag",
+    "version": "1.0.0"
+  },
+  "summary": {
+    "total_questions": 20,
+    "avg_latency_ms": 1771.5831518173218,
+    "total_cost_usd": 0.011391,
+    "total_tokens": 6965,
+    "hallucination_count": 0,
+    "hallucination_rate": 0.0
+  },
+  "by_category": {
+    "covid": {
+      "count": 2,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0010475
+    },
+    "demographie_medicale": {
+      "count": 2,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.001018
+    },
+    "epidemiologie": {
+      "count": 3,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0016335
+    },
+    "qualite_air": {
+      "count": 2,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.001068
+    },
+    "reglementation": {
+      "count": 2,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0010890000000000001
+    },
+    "historique": {
+      "count": 2,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0012525000000000001
+    },
+    "general": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0006935
+    },
+    "correlation": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0007000000000000001
+    },
+    "evenement": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.00065
+    },
+    "comparaison": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0005505
+    },
+    "capacite_hospitaliere": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0005785
+    },
+    "prevision": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0005385
+    },
+    "vulnerabilite": {
+      "count": 1,
+      "hallucinations": 0,
+      "hallucination_rate": 0.0,
+      "total_cost_usd": 0.0005715
+    }
+  },
+  "trap_questions": {
+    "total": 0,
+    "hallucinations": 0,
+    "detection_rate": 0
+  },
+  "results": [
+    {
+      "id": "SANTE_001",
+      "question": "Combien de personnes sont actuellement hospitalisées pour COVID-19 en France ?",
+      "category": "covid",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je n'ai pas accès aux données en temps réel. Pour obtenir le nombre actuel de personnes hospitalisées pour COVID-19 en France, je vous recommande de consulter les sources officielles telles que le site du gouvernement français ou du ministère de la Santé.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 2698.5840797424316,
+        "tokens_used": 315,
+        "input_tokens": 253,
+        "output_tokens": 62,
+        "cost_usd": 0.0005035
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_002",
+      "question": "Quelle est l'évolution du nombre d'hospitalisations COVID en Île-de-France sur le dernier mois ?",
+      "category": "covid",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je n'ai pas accès aux données en temps réel. Je vous recommande de consulter les sources officielles telles que Santé publique France ou l'Agence régionale de santé d'Île-de-France pour obtenir les informations les plus récentes sur l'évolution du nombre d'hospitalisations COVID en Île-de-France.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1070.2121257781982,
+        "tokens_used": 337,
+        "input_tokens": 260,
+        "output_tokens": 77,
+        "cost_usd": 0.000544
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_003",
+      "question": "Combien de médecins généralistes exercent à Montpellier ?",
+      "category": "demographie_medicale",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je suis désolé, mais je n'ai pas accès aux données en temps réel. Pour obtenir le nombre exact de médecins généralistes exerçant à Montpellier, je vous recommande de consulter les sources officielles telles que l'Ordre des Médecins ou la Sécurité Sociale.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1967.08083152771,
+        "tokens_used": 322,
+        "input_tokens": 251,
+        "output_tokens": 71,
+        "cost_usd": 0.0005185
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_004",
+      "question": "Quel est le taux d'incidence de la grippe cette semaine en France ?",
+      "category": "epidemiologie",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je suis désolé, mais je ne dispose pas d'informations en temps réel sur le taux d'incidence de la grippe en France. Pour des données actualisées, je vous recommande de consulter les rapports officiels du ministère de la Santé ou de l'agence Santé publique France.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1789.673089981079,
+        "tokens_used": 328,
+        "input_tokens": 255,
+        "output_tokens": 73,
+        "cost_usd": 0.0005285
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_005",
+      "question": "Y a-t-il une épidémie de choléra en France en ce moment ?",
+      "category": "epidemiologie",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Non, il n'y a pas d'épidémie de choléra en France. Le choléra est quasi inexistant en France métropolitaine.",
+      "response": {
+        "answer": "Non, il n'y a pas d'épidémie de choléra en France à ma connaissance. Le choléra est une maladie rare en France et les cas sont généralement importés de régions où la maladie est plus répandue. Si vous avez des inquiétudes spécifiques, je vous recommande de consulter les autorités sanitaires compétentes pour obtenir des informations actualisées.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1427.0789623260498,
+        "tokens_used": 346,
+        "input_tokens": 254,
+        "output_tokens": 92,
+        "cost_usd": 0.000565
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "POLLUTION_001",
+      "question": "Quel est le niveau de pollution NO2 à Paris aujourd'hui ?",
+      "category": "qualite_air",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je suis désolé, mais je n'ai pas accès aux données en temps réel sur la pollution atmosphérique. Pour obtenir des informations précises sur le niveau de pollution NO2 à Paris aujourd'hui, je vous recommande de consulter le site d'Airparif qui fournit des données actualisées sur la qualité de l'air en Île-de-France.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1943.8121318817139,
+        "tokens_used": 331,
+        "input_tokens": 250,
+        "output_tokens": 81,
+        "cost_usd": 0.000537
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "POLLUTION_002",
+      "question": "Comment a évolué la qualité de l'air à Lyon sur la dernière semaine ?",
+      "category": "qualite_air",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je suis désolé, mais je n'ai pas accès aux données en temps réel sur la qualité de l'air à Lyon. Je vous recommande de consulter les rapports d'Air Rhône-Alpes ou d'autres organismes locaux qui fournissent des informations actualisées sur la qualité de l'air dans la région de Lyon.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1100.7270812988281,
+        "tokens_used": 329,
+        "input_tokens": 254,
+        "output_tokens": 75,
+        "cost_usd": 0.000531
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "POLLUTION_003",
+      "question": "Quels sont les seuils d'alerte pollution pour les PM2.5 en France ?",
+      "category": "reglementation",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Seuil d'information: 50 µg/m³ (moyenne journalière). Seuil d'alerte: 80 µg/m³ (moyenne journalière).",
+      "response": {
+        "answer": "Les seuils d'alerte pollution pour les PM2.5 en France sont les suivants :\n- 25 µg/m³ en moyenne journalière\n- 50 µg/m³ en moyenne annuelle\n\nCependant, veuillez noter que ces seuils peuvent varier en fonction des recommandations et des normes en vigueur, il est donc préférable de consulter les sources officielles pour des informations à jour.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 2423.0270385742188,
+        "tokens_used": 353,
+        "input_tokens": 256,
+        "output_tokens": 97,
+        "cost_usd": 0.000578
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.2,
+        "indicators": [
+          "Statistique précise détectée: 25 µg/m³"
+        ],
+        "precise_numbers_found": 1
+      }
+    },
+    {
+      "id": "POLLUTION_004",
+      "question": "Y a-t-il eu des pics de pollution à l'ozone à Marseille cet été ?",
+      "category": "historique",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je n'ai pas accès aux données en temps réel, donc je ne peux pas te fournir d'informations précises sur les pics de pollution à l'ozone à Marseille cet été. Cependant, Marseille est une ville sujette à la pollution atmosphérique, et il est possible qu'il y ait eu des pics de pollution à l'ozone pendant les périodes de chaleur et d'ensoleillement. Je te recommande de consulter les rapports d'Air PACA ou les autorités locales pour obtenir des informations actualisées sur la qualité de l'air à Marseille.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1610.3661060333252,
+        "tokens_used": 383,
+        "input_tokens": 254,
+        "output_tokens": 129,
+        "cost_usd": 0.000639
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "POLLUTION_005",
+      "question": "Quel polluant est le plus dangereux entre NO2 et CO2 ?",
+      "category": "general",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Cette question compare deux types de problèmes différents. Le NO2 est un polluant atmosphérique toxique à court terme (affections respiratoires). Le CO2 n'est pas toxique aux concentrations atmosphériques mais est un gaz à effet de serre responsable du changement climatique. Les impacts sont différents en nature et en échelle temporelle.",
+      "response": {
+        "answer": "Le dioxyde d'azote (NO2) est généralement considéré comme plus dangereux pour la santé que le dioxyde de carbone (CO2). Le NO2 est un polluant atmosphérique provenant principalement de la combustion des carburants, notamment dans les véhicules motorisés. Il peut avoir des effets néfastes sur les voies respiratoires et aggraver les problèmes de santé existants, en particulier chez les personnes souffrant de maladies respiratoires. Le CO2, bien que contribuant au changement climatique en raison de son effet de serre, n'est pas directement toxique pour la santé à des concentrations courantes dans l'air.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 2247.330904006958,
+        "tokens_used": 410,
+        "input_tokens": 253,
+        "output_tokens": 157,
+        "cost_usd": 0.0006935
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "CROISE_001",
+      "question": "Y a-t-il une corrélation entre les pics de pollution et les hospitalisations pour asthme à Paris ?",
+      "category": "correlation",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Oui, de nombreuses études épidémiologiques montrent une corrélation positive entre les pics de pollution (notamment NO2, PM2.5, O3) et les admissions aux urgences pour crises d'asthme. Cette corrélation est particulièrement marquée chez les enfants et les personnes fragiles.",
+      "response": {
+        "answer": "Il est bien établi que la pollution atmosphérique peut aggraver les symptômes de l'asthme et augmenter le risque d'exacerbations chez les personnes asthmatiques. Les particules fines et les oxydes d'azote présents dans l'air peuvent irriter les voies respiratoires et déclencher des crises d'asthme. Ainsi, il est plausible qu'il y ait une corrélation entre les pics de pollution et les hospitalisations pour asthme à Paris. Cependant, pour des données précises sur cette corrélation dans la région parisienne, il faudrait consulter des études scientifiques ou des rapports spécialisés.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1924.3121147155762,
+        "tokens_used": 415,
+        "input_tokens": 260,
+        "output_tokens": 155,
+        "cost_usd": 0.0007000000000000001
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "CROISE_002",
+      "question": "Lors des pics de pollution de décembre 2024 à Paris, a-t-on observé une augmentation des passages aux urgences ?",
+      "category": "evenement",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je n'ai pas accès aux données en temps réel, donc je ne peux pas fournir d'informations spécifiques sur les pics de pollution de décembre 2024 à Paris. Cependant, il est connu que la pollution atmosphérique peut avoir un impact sur la santé, notamment en aggravant les problèmes respiratoires et cardiovasculaires. Il est donc possible que des pics de pollution aient un impact sur les passages aux urgences, mais pour des informations précises, il faudrait consulter les autorités sanitaires ou les hôpitaux concernés.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1868.243932723999,
+        "tokens_used": 391,
+        "input_tokens": 264,
+        "output_tokens": 127,
+        "cost_usd": 0.00065
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "CROISE_003",
+      "question": "La COVID-19 a-t-elle réduit la pollution atmosphérique pendant les confinements ?",
+      "category": "historique",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Oui, les confinements de 2020 ont entraîné une baisse significative des polluants liés au trafic routier: -30% à -50% pour le NO2 dans les grandes villes françaises. Les PM2.5 ont moins diminué car ils ont des sources multiples (chauffage, industrie). L'ozone a parfois augmenté en raison de la chimie atmosphérique.",
+      "response": {
+        "answer": "Oui, il a été observé que la pollution atmosphérique a diminué pendant les périodes de confinement liées à la COVID-19. Avec moins de déplacements en voiture et en avion, ainsi que la réduction de l'activité industrielle, les émissions de polluants ont baissé, ce qui a eu un impact positif sur la qualité de l'air. Cependant, il est important de noter que ces effets peuvent varier en fonction des régions et des polluants concernés.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 2257.4260234832764,
+        "tokens_used": 371,
+        "input_tokens": 257,
+        "output_tokens": 114,
+        "cost_usd": 0.0006135
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_006",
+      "question": "Quel département a le plus de médecins par habitant en France ?",
+      "category": "demographie_medicale",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Paris (75) a historiquement la densité médicale la plus élevée de France, avec environ 8 médecins pour 1000 habitants contre une moyenne nationale d'environ 3,4.",
+      "response": {
+        "answer": "Je ne dispose pas de données actualisées sur le nombre de médecins par habitant par département en France. Cependant, il est possible de consulter les statistiques officielles du Conseil National de l'Ordre des Médecins pour obtenir ces informations.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1134.761095046997,
+        "tokens_used": 313,
+        "input_tokens": 253,
+        "output_tokens": 60,
+        "cost_usd": 0.0004995
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_007",
+      "question": "La vaccination contre la grippe est-elle obligatoire en France ?",
+      "category": "reglementation",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Non, la vaccination contre la grippe n'est pas obligatoire en France pour la population générale. Elle est fortement recommandée pour les personnes à risque (plus de 65 ans, maladies chroniques, femmes enceintes, professionnels de santé).",
+      "response": {
+        "answer": "Non, la vaccination contre la grippe n'est pas obligatoire en France. Cependant, elle est fortement recommandée pour certaines populations à risque, comme les personnes âgées, les femmes enceintes, les personnes souffrant de certaines maladies chroniques, et les professionnels de santé.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 2759.469747543335,
+        "tokens_used": 318,
+        "input_tokens": 250,
+        "output_tokens": 68,
+        "cost_usd": 0.0005110000000000001
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "POLLUTION_006",
+      "question": "Quelle ville française est la plus polluée ?",
+      "category": "comparaison",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Il n'y a pas de réponse simple car cela dépend du polluant considéré et de la période. Pour le NO2, les grandes agglomérations (Paris, Lyon, Marseille) ont les concentrations les plus élevées. Pour les PM2.5, certaines vallées alpines (Arve) peuvent avoir des niveaux très élevés en hiver à cause du chauffage au bois.",
+      "response": {
+        "answer": "Je ne dispose pas de données en temps réel, mais généralement Paris est souvent citée parmi les villes françaises les plus polluées en raison de sa densité de population, de son trafic routier important et de ses activités industrielles. Cependant, d'autres villes comme Lyon, Marseille ou Lille peuvent également être concernées par des niveaux élevés de pollution atmosphérique.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1480.8259010314941,
+        "tokens_used": 337,
+        "input_tokens": 247,
+        "output_tokens": 90,
+        "cost_usd": 0.0005505
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_008",
+      "question": "Combien de lits de réanimation y a-t-il en France ?",
+      "category": "capacite_hospitaliere",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "La France dispose d'environ 5000 à 5500 lits de réanimation en temps normal, un chiffre qui a pu être augmenté temporairement pendant la crise COVID.",
+      "response": {
+        "answer": "Je n'ai pas accès aux données en temps réel, donc je ne peux pas vous donner le nombre exact de lits de réanimation en France actuellement. Cependant, je peux vous dire que le nombre de lits de réanimation peut varier en fonction des besoins et des capacités des hôpitaux. Pour des informations précises et à jour, je vous recommande de consulter les sources officielles du ministère de la Santé en France.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1575.9479999542236,
+        "tokens_used": 352,
+        "input_tokens": 251,
+        "output_tokens": 101,
+        "cost_usd": 0.0005785
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 2"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "POLLUTION_007",
+      "question": "L'indice ATMO de demain à Bordeaux sera-t-il bon ?",
+      "category": "prevision",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": null,
+      "response": {
+        "answer": "Je suis désolé, mais je n'ai pas accès aux prévisions météorologiques ou à l'indice de la qualité de l'air pour demain à Bordeaux. Je vous recommande de consulter les prévisions météorologiques locales ou le site d'Airparif pour obtenir des informations actualisées sur la qualité de l'air à Bordeaux.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1210.1058959960938,
+        "tokens_used": 332,
+        "input_tokens": 251,
+        "output_tokens": 81,
+        "cost_usd": 0.0005385
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [
+          "Expressions d'incertitude détectées: 1"
+        ],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "CROISE_004",
+      "question": "Les enfants sont-ils plus vulnérables à la pollution que les adultes ?",
+      "category": "vulnerabilite",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Oui, les enfants sont plus vulnérables à la pollution atmosphérique pour plusieurs raisons: leur système respiratoire est en développement, ils respirent plus vite, ils passent plus de temps en activité physique extérieure, et leur système immunitaire est immature. L'exposition à la pollution pendant l'enfance peut avoir des effets durables sur la santé respiratoire.",
+      "response": {
+        "answer": "En général, les enfants sont en effet plus vulnérables à la pollution que les adultes. Leurs organes en développement, leur système immunitaire encore immature et leur tendance à respirer plus rapidement que les adultes les rendent plus sensibles aux effets néfastes de la pollution atmosphérique. Cela peut avoir des conséquences sur leur santé à long terme, notamment en ce qui concerne le développement pulmonaire et cognitif.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1691.2109851837158,
+        "tokens_used": 349,
+        "input_tokens": 253,
+        "output_tokens": 96,
+        "cost_usd": 0.0005715
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    },
+    {
+      "id": "SANTE_009",
+      "question": "Le paludisme est-il endémique en France métropolitaine ?",
+      "category": "epidemiologie",
+      "is_trap_question": false,
+      "expected_behavior": "",
+      "ground_truth": "Non, le paludisme n'est pas endémique en France métropolitaine. Les cas diagnostiqués sont des cas importés (voyageurs revenant de zones endémiques). La France a été déclarée exempte de paludisme autochtone depuis les années 1960.",
+      "response": {
+        "answer": "Non, le paludisme n'est pas endémique en France métropolitaine. Le paludisme est une maladie tropicale transmise par des moustiques et n'est pas présente de manière endémique en France. Cependant, il est possible de contracter le paludisme en voyageant dans des zones où la maladie est présente.",
+        "confidence": 0.5,
+        "has_sources": false
+      },
+      "metrics": {
+        "latency_ms": 1251.466989517212,
+        "tokens_used": 333,
+        "input_tokens": 252,
+        "output_tokens": 81,
+        "cost_usd": 0.00054
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "precise_numbers_found": 0
+      }
+    }
+  ]
+}
