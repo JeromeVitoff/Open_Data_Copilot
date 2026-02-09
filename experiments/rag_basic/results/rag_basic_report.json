@@ -1,0 +1,1242 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-04T13:34:36.433436",
+    "model": "gpt-3.5-turbo",
+    "embedding_model": "text-embedding-3-small",
+    "rag_type": "basic_faiss",
+    "version": "1.0.0",
+    "index_size": 5096
+  },
+  "summary": {
+    "total_questions": 20,
+    "avg_total_time_ms": 1891.73583984375,
+    "avg_retrieval_time_ms": 366.4423208309503,
+    "total_cost_usd": 0.018631,
+    "total_tokens": 11626,
+    "hallucination_count": 0,
+    "hallucination_rate": 0.0,
+    "responses_with_sources": 20,
+    "sources_rate": 1.0,
+    "avg_docs_retrieved": 5.0,
+    "avg_relevance_score": 0.5237532323598861,
+    "avg_quality_score": 0.7099999999999997
+  },
+  "by_category": {
+    "covid": {
+      "count": 2,
+      "hallucinations": 0,
+      "with_sources": 2,
+      "avg_quality": 0.7999999999999999
+    },
+    "demographie_medicale": {
+      "count": 2,
+      "hallucinations": 0,
+      "with_sources": 2,
+      "avg_quality": 0.7
+    },
+    "epidemiologie": {
+      "count": 3,
+      "hallucinations": 0,
+      "with_sources": 3,
+      "avg_quality": 0.6999999999999998
+    },
+    "qualite_air": {
+      "count": 2,
+      "hallucinations": 0,
+      "with_sources": 2,
+      "avg_quality": 0.7
+    },
+    "reglementation": {
+      "count": 2,
+      "hallucinations": 0,
+      "with_sources": 2,
+      "avg_quality": 0.7
+    },
+    "historique": {
+      "count": 2,
+      "hallucinations": 0,
+      "with_sources": 2,
+      "avg_quality": 0.7
+    },
+    "general": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    },
+    "correlation": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    },
+    "evenement": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    },
+    "comparaison": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    },
+    "capacite_hospitaliere": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    },
+    "prevision": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    },
+    "vulnerabilite": {
+      "count": 1,
+      "hallucinations": 0,
+      "with_sources": 1,
+      "avg_quality": 0.7
+    }
+  },
+  "comparison_with_baseline": {
+    "baseline": {
+      "hallucination_rate": 0.0,
+      "avg_latency_ms": 1771.5831518173218,
+      "total_cost_usd": 0.011391,
+      "responses_with_sources": 0,
+      "useful_responses_rate": 0.3
+    },
+    "rag_basic": {
+      "hallucination_rate": 0.0,
+      "avg_latency_ms": 1891.73583984375,
+      "total_cost_usd": 0.018631,
+      "responses_with_sources": 1.0,
+      "useful_responses_rate": 0.7099999999999997
+    }
+  },
+  "results": [
+    {
+      "id": "SANTE_001",
+      "question": "Combien de personnes sont actuellement hospitalisées pour COVID-19 en France ?",
+      "category": "covid",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Selon les données les plus récentes disponibles, le nombre de personnes actuellement hospitalisées pour COVID-19 dans le département 78 est de 326, avec 30 en réanimation. Ces données ont été rapportées le 22 septembre 2022. \n\nIl n'est pas possible de fournir un chiffre précis pour le nombre total de personnes hospitalisées pour COVID-19 en France en se basant uniquement sur les données fournies pour quelques départements spécifiques.",
+        "confidence": 0.6462636470794678,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-09-22"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2021-10-24"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2021-05-24"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-01-21"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-02-20"
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2841.8099880218506,
+        "retrieval_time_ms": 470.77107429504395,
+        "generation_time_ms": 2370.92924118042,
+        "tokens_used": 724,
+        "cost_usd": 0.0011580000000000002,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.6462636470794678
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_002",
+      "question": "Quelle est l'évolution du nombre d'hospitalisations COVID en Île-de-France sur le dernier mois ?",
+      "category": "covid",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Sur le dernier mois, l'évolution du nombre d'hospitalisations COVID en Île-de-France peut être analysée en comparant les données des départements 75 (Paris) et 77.\n\n- Pour le département 75 (Paris) :\n   - Hospitalisations COVID-19 le 2022-07-23 : 535\n   - Hospitalisations COVID-19 le 2023-02-21 : 98\n   Source : [3] et [5]\n\n- Pour le département 77 :\n   - Hospitalisations COVID-19 le 2022-09-22 : 326\n   - Hospitalisations COVID-19 le 2023-02-21 : 98\n   Source : [2] et [5]\n\nNote sur la fraîcheur des données : Les données les plus récentes datent du 2023-02-21, ce qui permet une analyse relativement récente de l'évolution du nombre d'hospitalisations COVID en Île-de-France.",
+        "confidence": 0.6523827195167542,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-02-20"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-09-22"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-07-23"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-11-08"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-02-21"
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2686.1188411712646,
+        "retrieval_time_ms": 407.9080820083618,
+        "generation_time_ms": 2340.8896923065186,
+        "tokens_used": 839,
+        "cost_usd": 0.0013845,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.6523827195167542
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": true,
+        "admits_uncertainty": false,
+        "score": 0.8999999999999999
+      }
+    },
+    {
+      "id": "SANTE_003",
+      "question": "Combien de médecins généralistes exercent à Montpellier ?",
+      "category": "demographie_medicale",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question sur le nombre de médecins généralistes exerçant à Montpellier, car les sources mentionnées ne donnent pas de détails spécifiques sur la répartition des médecins par ville ou commune dans le département de l'Hérault.",
+        "confidence": 0.5331034064292908,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1971.095085144043,
+        "retrieval_time_ms": 448.9927291870117,
+        "generation_time_ms": 1439.7330284118652,
+        "tokens_used": 527,
+        "cost_usd": 0.0008465000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.5331034064292908
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_004",
+      "question": "Quel est le taux d'incidence de la grippe cette semaine en France ?",
+      "category": "epidemiologie",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne contiennent pas d'informations sur le taux d'incidence de la grippe en France. Par conséquent, je ne peux pas fournir de réponse précise à cette question.",
+        "confidence": 0.4126319527626038,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-02-20"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2021-10-04"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2021-08-09"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2020-09-23"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2021-04-18"
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2233.9160442352295,
+        "retrieval_time_ms": 392.37475395202637,
+        "generation_time_ms": 2011.2969875335693,
+        "tokens_used": 667,
+        "cost_usd": 0.0010440000000000002,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.4126319527626038
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": true,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_005",
+      "question": "Y a-t-il une épidémie de choléra en France en ce moment ?",
+      "category": "epidemiologie",
+      "ground_truth": "Non, il n'y a pas d'épidémie de choléra en France. Le choléra est quasi inexistant en France métropolitaine.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne font pas mention d'une épidémie de choléra en France. Aucune information sur le choléra n'est disponible dans les sources fournies concernant les hospitalisations liées à la COVID-19. Par conséquent, il n'est pas possible de répondre à la question sur la présence d'une épidémie de choléra en France en ce moment en se basant sur les données du contexte.",
+        "confidence": 0.3517234206199646,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-03-19"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-02-06"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2020-05-14"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-03-14"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-03-02"
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1759.8381042480469,
+        "retrieval_time_ms": 420.11241912841797,
+        "generation_time_ms": 1228.6419868469238,
+        "tokens_used": 713,
+        "cost_usd": 0.0011365,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.3517234206199646
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_001",
+      "question": "Quel est le niveau de pollution NO2 à Paris aujourd'hui ?",
+      "category": "qualite_air",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Malheureusement, les données fournies ne précisent pas la date à laquelle les mesures ont été prises pour le niveau de pollution NO2 à Paris. Par conséquent, je ne peux pas fournir le niveau de pollution NO2 à Paris aujourd'hui.",
+        "confidence": 0.6757845520973206,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2275.585889816284,
+        "retrieval_time_ms": 392.6563660303752,
+        "generation_time_ms": 2020.129919052124,
+        "tokens_used": 511,
+        "cost_usd": 0.0008150000000000002,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.6757845520973206
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": true,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_002",
+      "question": "Comment a évolué la qualité de l'air à Lyon sur la dernière semaine ?",
+      "category": "qualite_air",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Malheureusement, les données fournies ne permettent pas de répondre à la question sur l'évolution de la qualité de l'air à Lyon sur la dernière semaine, car seules les mesures de l'humidité relative et de la température sont disponibles. Aucune donnée sur les polluants atmosphériques n'est mentionnée dans le contexte.",
+        "confidence": 0.7040349006652832,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1285.4280471801758,
+        "retrieval_time_ms": 375.79430852617537,
+        "generation_time_ms": 1010.7288360595703,
+        "tokens_used": 538,
+        "cost_usd": 0.0008680000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.7040349006652832
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_003",
+      "question": "Quels sont les seuils d'alerte pollution pour les PM2.5 en France ?",
+      "category": "reglementation",
+      "ground_truth": "Seuil d'information: 50 µg/m³ (moyenne journalière). Seuil d'alerte: 80 µg/m³ (moyenne journalière).",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les seuils d'alerte pollution pour les PM2.5 en France ne sont pas fournis dans les données du contexte.",
+        "confidence": 0.5645693302154541,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "airparif_indices.csv",
+            "date": "2020-05-28"
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2281.9578647613525,
+        "retrieval_time_ms": 375.17088651657104,
+        "generation_time_ms": 1911.0589027404785,
+        "tokens_used": 514,
+        "cost_usd": 0.000805,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.5645693302154541
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_004",
+      "question": "Y a-t-il eu des pics de pollution à l'ozone à Marseille cet été ?",
+      "category": "historique",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question sur les pics de pollution à l'ozone à Marseille cet été, car les sources ne donnent pas de détails sur les niveaux de pollution à des dates spécifiques.",
+        "confidence": 0.618520998954773,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_marseille_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_marseille_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_marseille_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_marseille_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_marseille_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2007.5111389160156,
+        "retrieval_time_ms": 365.2101357777913,
+        "generation_time_ms": 1721.8539714813232,
+        "tokens_used": 511,
+        "cost_usd": 0.0008135000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.618520998954773
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_005",
+      "question": "Quel polluant est le plus dangereux entre NO2 et CO2 ?",
+      "category": "general",
+      "ground_truth": "Cette question compare deux types de problèmes différents. Le NO2 est un polluant atmosphérique toxique à court terme (affections respiratoires). Le CO2 n'est pas toxique aux concentrations atmosphériques mais est un gaz à effet de serre responsable du changement climatique. Les impacts sont différents en nature et en échelle temporelle.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre à la question sur le polluant le plus dangereux entre NO2 et CO2, car seules des informations sur le NO2 sont disponibles dans le contexte.",
+        "confidence": 0.45642217993736267,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1934.088945388794,
+        "retrieval_time_ms": 363.224196434021,
+        "generation_time_ms": 1588.5241031646729,
+        "tokens_used": 503,
+        "cost_usd": 0.0007975,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.45642217993736267
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "CROISE_001",
+      "question": "Y a-t-il une corrélation entre les pics de pollution et les hospitalisations pour asthme à Paris ?",
+      "category": "correlation",
+      "ground_truth": "Oui, de nombreuses études épidémiologiques montrent une corrélation positive entre les pics de pollution (notamment NO2, PM2.5, O3) et les admissions aux urgences pour crises d'asthme. Cette corrélation est particulièrement marquée chez les enfants et les personnes fragiles.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question sur la corrélation entre les pics de pollution et les hospitalisations pour asthme à Paris. Les sources mentionnées concernent uniquement la qualité de l'air mesurée par le polluant pm1, sans inclure les données sur les hospitalisations pour asthme.\n\nNote sur la fraîcheur des données : Les données de qualité de l'air pour Paris basées sur le polluant pm1 proviennent de la source OpenAQ, mais la date de ces données n'est pas spécifiée.",
+        "confidence": 0.5400960445404053,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2035.276174545288,
+        "retrieval_time_ms": 351.18083520369095,
+        "generation_time_ms": 1804.3739795684814,
+        "tokens_used": 591,
+        "cost_usd": 0.00097,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.5400960445404053
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "CROISE_002",
+      "question": "Lors des pics de pollution de décembre 2024 à Paris, a-t-on observé une augmentation des passages aux urgences ?",
+      "category": "evenement",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre à la question sur les pics de pollution de décembre 2024 à Paris, car la source la plus récente disponible concerne les passages aux urgences dans le département 94 jusqu'au 27 octobre 2021.",
+        "confidence": 0.5505375623703003,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "sursaud_urgences.csv",
+            "date": "2020-12-01"
+          },
+          {
+            "name": "sursaud_urgences.csv",
+            "date": "2021-10-27"
+          },
+          {
+            "name": "sursaud_urgences.csv",
+            "date": "2020-10-15"
+          },
+          {
+            "name": "sursaud_urgences.csv",
+            "date": "2020-08-28"
+          },
+          {
+            "name": "sursaud_urgences.csv",
+            "date": "2020-11-04"
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1293.1370735168457,
+        "retrieval_time_ms": 340.2128418286641,
+        "generation_time_ms": 1073.4529495239258,
+        "tokens_used": 508,
+        "cost_usd": 0.0008120000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.5505375623703003
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "CROISE_003",
+      "question": "La COVID-19 a-t-elle réduit la pollution atmosphérique pendant les confinements ?",
+      "category": "historique",
+      "ground_truth": "Oui, les confinements de 2020 ont entraîné une baisse significative des polluants liés au trafic routier: -30% à -50% pour le NO2 dans les grandes villes françaises. Les PM2.5 ont moins diminué car ils ont des sources multiples (chauffage, industrie). L'ozone a parfois augmenté en raison de la chimie atmosphérique.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question sur l'impact de la COVID-19 sur la pollution atmosphérique pendant les confinements. Les données disponibles concernent la qualité de l'air en Île-de-France et à Paris jusqu'en mars 2020, mais ne fournissent pas d'informations spécifiques sur les niveaux de pollution atmosphérique pendant les périodes de confinement liées à la COVID-19.",
+        "confidence": 0.43398477435112,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "airparif_indices.csv",
+            "date": "2020-03-19"
+          },
+          {
+            "name": "airparif_indices.csv",
+            "date": "2020-03-20"
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1766.4940357208252,
+        "retrieval_time_ms": 335.2403824145977,
+        "generation_time_ms": 1490.807056427002,
+        "tokens_used": 662,
+        "cost_usd": 0.0010630000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.43398477435112
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_006",
+      "question": "Quel département a le plus de médecins par habitant en France ?",
+      "category": "demographie_medicale",
+      "ground_truth": "Paris (75) a historiquement la densité médicale la plus élevée de France, avec environ 8 médecins pour 1000 habitants contre une moyenne nationale d'environ 3,4.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Le département ayant le plus de médecins par habitant en France ne peut être déterminé avec certitude à partir des données fournies, car les chiffres spécifiques sur le nombre de médecins par habitant ne sont pas mentionnés dans le contexte. Les sources fournies ne contiennent pas d'informations détaillées sur la densité de médecins par département.\n\nNote sur la fraîcheur des données : Les données sur la démographie médicale dans le département 999 en France sont de date inconnue.",
+        "confidence": 0.6480988979339599,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1798.7117767333984,
+        "retrieval_time_ms": 331.05691841670443,
+        "generation_time_ms": 1521.9800472259521,
+        "tokens_used": 575,
+        "cost_usd": 0.0009440000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.6480988979339599
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_007",
+      "question": "La vaccination contre la grippe est-elle obligatoire en France ?",
+      "category": "reglementation",
+      "ground_truth": "Non, la vaccination contre la grippe n'est pas obligatoire en France pour la population générale. Elle est fortement recommandée pour les personnes à risque (plus de 65 ans, maladies chroniques, femmes enceintes, professionnels de santé).",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question de savoir si la vaccination contre la grippe est obligatoire en France.",
+        "confidence": 0.31391067504882814,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2114.0942573547363,
+        "retrieval_time_ms": 327.1262009938558,
+        "generation_time_ms": 1841.705083847046,
+        "tokens_used": 481,
+        "cost_usd": 0.0007575000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.31391067504882814
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_006",
+      "question": "Quelle ville française est la plus polluée ?",
+      "category": "comparaison",
+      "ground_truth": "Il n'y a pas de réponse simple car cela dépend du polluant considéré et de la période. Pour le NO2, les grandes agglomérations (Paris, Lyon, Marseille) ont les concentrations les plus élevées. Pour les PM2.5, certaines vallées alpines (Arve) peuvent avoir des niveaux très élevés en hiver à cause du chauffage au bois.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "La ville française la plus polluée en termes de dioxyde de carbone (CO) n'est pas clairement définie dans les données fournies. Les informations sur la qualité de l'air à Paris pour le polluant CO sont disponibles, mais il n'y a pas de comparaison avec d'autres villes françaises dans le contexte donné.\n\n**Note sur la fraîcheur des données :** Les données sur la qualité de l'air à Paris pour le polluant CO proviennent de la source OpenAQ, mais la date de ces données n'est pas spécifiée. Par conséquent, il n'est pas possible de déterminer la ville française la plus polluée actuellement.",
+        "confidence": 0.5980325222015381,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 2487.5876903533936,
+        "retrieval_time_ms": 328.18467915058136,
+        "generation_time_ms": 2143.4638500213623,
+        "tokens_used": 599,
+        "cost_usd": 0.000995,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.5980325222015381
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_008",
+      "question": "Combien de lits de réanimation y a-t-il en France ?",
+      "category": "capacite_hospitaliere",
+      "ground_truth": "La France dispose d'environ 5000 à 5500 lits de réanimation en temps normal, un chiffre qui a pu être augmenté temporairement pendant la crise COVID.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question sur le nombre total de lits de réanimation en France.",
+        "confidence": 0.5236152768135071,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-04-02"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-03-14"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-03-15"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2022-04-15"
+          },
+          {
+            "name": "covid_hospitalisations.csv",
+            "date": "2023-03-01"
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1119.7288036346436,
+        "retrieval_time_ms": 324.7540417839499,
+        "generation_time_ms": 849.7672080993652,
+        "tokens_used": 645,
+        "cost_usd": 0.0010025000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.5236152768135071
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "POLLUTION_007",
+      "question": "L'indice ATMO de demain à Bordeaux sera-t-il bon ?",
+      "category": "prevision",
+      "ground_truth": null,
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies concernent la qualité de l'air à Lyon, mais aucune information n'est disponible pour Bordeaux. Par conséquent, je ne peux pas fournir d'indication sur l'indice ATMO de demain à Bordeaux.",
+        "confidence": 0.48538069128990174,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1172.5311279296875,
+        "retrieval_time_ms": 326.3932598961724,
+        "generation_time_ms": 818.1807994842529,
+        "tokens_used": 504,
+        "cost_usd": 0.0008020000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.48538069128990174
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": true,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "CROISE_004",
+      "question": "Les enfants sont-ils plus vulnérables à la pollution que les adultes ?",
+      "category": "vulnerabilite",
+      "ground_truth": "Oui, les enfants sont plus vulnérables à la pollution atmosphérique pour plusieurs raisons: leur système respiratoire est en développement, ils respirent plus vite, ils passent plus de temps en activité physique extérieure, et leur système immunitaire est immature. L'exposition à la pollution pendant l'enfance peut avoir des effets durables sur la santé respiratoire.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies ne permettent pas de répondre précisément à la question sur la vulnérabilité des enfants par rapport aux adultes face à la pollution. Les sources mentionnées ne contiennent pas d'informations spécifiques sur les effets de la pollution sur ces deux groupes d'âge.",
+        "confidence": 0.34376785159111023,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_lyon_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          },
+          {
+            "name": "openaq_paris_latest.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1533.2958698272705,
+        "retrieval_time_ms": 320.2182870162161,
+        "generation_time_ms": 1324.1448402404785,
+        "tokens_used": 525,
+        "cost_usd": 0.0008415000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.34376785159111023
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": false,
+        "score": 0.7
+      }
+    },
+    {
+      "id": "SANTE_009",
+      "question": "Le paludisme est-il endémique en France métropolitaine ?",
+      "category": "epidemiologie",
+      "ground_truth": "Non, le paludisme n'est pas endémique en France métropolitaine. Les cas diagnostiqués sont des cas importés (voyageurs revenant de zones endémiques). La France a été déclarée exempte de paludisme autochtone depuis les années 1960.",
+      "expected_behavior": "",
+      "response": {
+        "answer": "Les données fournies dans le contexte ne concernent pas le paludisme en France métropolitaine. Par conséquent, je ne peux pas répondre précisément à la question posée.",
+        "confidence": 0.4222032427787781,
+        "num_sources": 5,
+        "sources": [
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          },
+          {
+            "name": "professionnels_sante_dep.csv",
+            "date": ""
+          }
+        ]
+      },
+      "metrics": {
+        "total_time_ms": 1236.5100383758545,
+        "retrieval_time_ms": 332.26401805877686,
+        "generation_time_ms": 675.2848625183105,
+        "tokens_used": 489,
+        "cost_usd": 0.0007750000000000001,
+        "num_docs_retrieved": 5,
+        "avg_relevance_score": 0.4222032427787781
+      },
+      "hallucination_analysis": {
+        "is_hallucination": false,
+        "confidence": 0.0,
+        "indicators": [],
+        "has_sources": true
+      },
+      "quality_analysis": {
+        "has_answer": true,
+        "cites_sources": true,
+        "mentions_dates": false,
+        "admits_uncertainty": true,
+        "score": 0.7
+      }
+    }
+  ]
+}
