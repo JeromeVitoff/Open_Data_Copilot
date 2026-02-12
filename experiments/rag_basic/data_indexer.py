@@ -14,11 +14,13 @@ Usage:
 import json
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import psutil
 from dotenv import load_dotenv
 from loguru import logger
 from tqdm import tqdm
@@ -56,6 +58,9 @@ class DataIndexer:
         self.documents: list[dict] = []
         self.embeddings: np.ndarray | None = None
         self.client = None
+        self.total_cost = 0.0
+        self.start_time = None
+        self.embedding_time = 0.0
 
     def _init_openai(self):
         """Initialise le client OpenAI."""
@@ -321,12 +326,12 @@ class DataIndexer:
         logger.info(f"\n📊 Total: {len(self.documents)} documents")
         return len(self.documents)
 
-    def generate_embeddings(self, batch_size: int = 100) -> np.ndarray:
+    def generate_embeddings(self, batch_size: int = 1000) -> np.ndarray:
         """
-        Génère les embeddings pour tous les documents.
+        Génère les embeddings pour tous les documents avec monitoring complet.
 
         Args:
-            batch_size: Taille des batches pour l'API
+            batch_size: Taille des batches pour l'API (défaut: 1000 pour VM puissante)
 
         Returns:
             Matrice d'embeddings (n_docs, embedding_dim)
@@ -337,29 +342,78 @@ class DataIndexer:
         if self.client is None:
             self._init_openai()
 
-        logger.info(f"\n🧮 Génération des embeddings ({len(self.documents)} documents)...")
+        logger.info(f"\n🧮 Génération des embeddings ({len(self.documents):,} documents)...")
+        logger.info(f"   📦 Batch size: {batch_size}")
+        logger.info(f"   💻 CPU disponibles: {psutil.cpu_count()}")
+        logger.info(f"   💾 RAM disponible: {psutil.virtual_memory().available / (1024**3):.1f} GB")
 
         all_embeddings = []
         texts = [doc["text"] for doc in self.documents]
 
-        for i in tqdm(range(0, len(texts), batch_size), desc="   Batches"):
-            batch = texts[i:i + batch_size]
+        embedding_start = time.time()
+        num_batches = (len(texts) + batch_size - 1) // batch_size
 
-            try:
-                response = self.client.embeddings.create(
-                    model=self.config.embedding_model,
-                    input=batch,
-                )
+        process = psutil.Process()
 
-                batch_embeddings = [item.embedding for item in response.data]
-                all_embeddings.extend(batch_embeddings)
+        with tqdm(total=len(texts), desc="   📊 Embeddings", unit="docs", ncols=100) as pbar:
+            for batch_idx, i in enumerate(range(0, len(texts), batch_size), 1):
+                batch_start = time.time()
+                batch = texts[i:i + batch_size]
 
-            except Exception as e:
-                logger.error(f"Erreur API: {e}")
-                raise
+                try:
+                    response = self.client.embeddings.create(
+                        model=self.config.embedding_model,
+                        input=batch,
+                    )
+
+                    batch_embeddings = [item.embedding for item in response.data]
+                    all_embeddings.extend(batch_embeddings)
+
+                    # Calculer le coût du batch
+                    batch_tokens = sum(len(t.split()) * 1.3 for t in batch)
+                    batch_cost = (batch_tokens / 1000) * self.config.embedding_cost_per_1k
+                    self.total_cost += batch_cost
+
+                    # Temps et stats
+                    batch_time = time.time() - batch_start
+                    elapsed_total = time.time() - embedding_start
+                    docs_processed = min(i + batch_size, len(texts))
+                    avg_time_per_batch = elapsed_total / batch_idx
+                    eta_seconds = avg_time_per_batch * (num_batches - batch_idx)
+
+                    # RAM utilisée
+                    ram_used_gb = process.memory_info().rss / (1024**3)
+                    ram_avail_gb = psutil.virtual_memory().available / (1024**3)
+
+                    # Mise à jour progress bar avec stats détaillées
+                    pbar.update(len(batch))
+                    pbar.set_postfix({
+                        'batch': f'{batch_idx}/{num_batches}',
+                        'time': f'{batch_time:.1f}s',
+                        'cost': f'${self.total_cost:.3f}',
+                        'RAM': f'{ram_used_gb:.1f}GB',
+                        'ETA': f'{eta_seconds/60:.0f}m'
+                    }, refresh=True)
+
+                    # Log détaillé tous les 10 batches
+                    if batch_idx % 10 == 0:
+                        logger.info(f"   📊 Batch {batch_idx}/{num_batches} | "
+                                   f"{docs_processed:,}/{len(texts):,} docs | "
+                                   f"Coût: ${self.total_cost:.4f} | "
+                                   f"RAM: {ram_used_gb:.1f}/{ram_avail_gb:.1f} GB | "
+                                   f"ETA: {eta_seconds/60:.1f} min")
+
+                except Exception as e:
+                    logger.error(f"❌ Erreur API batch {batch_idx}: {e}")
+                    raise
 
         self.embeddings = np.array(all_embeddings, dtype=np.float32)
-        logger.info(f"   ✅ Embeddings: {self.embeddings.shape}")
+        self.embedding_time = time.time() - embedding_start
+
+        logger.info(f"\n   ✅ Embeddings générés: {self.embeddings.shape}")
+        logger.info(f"   ⏱️  Temps total: {self.embedding_time/60:.1f} minutes")
+        logger.info(f"   💰 Coût total: ${self.total_cost:.4f}")
+        logger.info(f"   ⚡ Vitesse: {len(texts)/self.embedding_time:.0f} docs/sec")
 
         return self.embeddings
 
@@ -403,17 +457,19 @@ class DataIndexer:
         logger.info(f"   ✅ Métadonnées sauvegardées: {self.config.metadata_path}")
 
     def print_stats(self) -> None:
-        """Affiche les statistiques d'indexation."""
+        """Affiche les statistiques complètes d'indexation."""
         if not self.documents:
             return
 
-        logger.info("\n" + "=" * 60)
-        logger.info("📊 STATISTIQUES D'INDEXATION")
-        logger.info("=" * 60)
+        logger.info("\n" + "=" * 80)
+        logger.info("📊 STATISTIQUES D'INDEXATION COMPLÈTE")
+        logger.info("=" * 80)
 
-        # Compter par source
+        # Compter par source et domaine
         sources = {}
         domains = {"sante": 0, "pollution": 0}
+        dates_by_year = {}
+        dates_by_month = {}
 
         for doc in self.documents:
             source = doc["metadata"]["source"]
@@ -421,56 +477,131 @@ class DataIndexer:
             sources[source] = sources.get(source, 0) + 1
             domains[domain] += 1
 
-        logger.info(f"\n📁 Total documents: {len(self.documents)}")
+            # Analyse temporelle
+            if "date" in doc["metadata"]:
+                date_str = doc["metadata"]["date"]
+                try:
+                    if len(date_str) >= 4:
+                        year = date_str[:4]
+                        dates_by_year[year] = dates_by_year.get(year, 0) + 1
+                    if len(date_str) >= 7:
+                        month = date_str[:7]
+                        dates_by_month[month] = dates_by_month.get(month, 0) + 1
+                except Exception:
+                    pass
 
-        logger.info(f"\n📂 Par domaine:")
-        for domain, count in domains.items():
+        logger.info(f"\n📁 VOLUME TOTAL")
+        logger.info(f"   Documents indexés: {len(self.documents):,}")
+
+        logger.info(f"\n📂 RÉPARTITION PAR DOMAINE")
+        for domain, count in sorted(domains.items(), key=lambda x: -x[1]):
             pct = count / len(self.documents) * 100
-            logger.info(f"   {domain}: {count} ({pct:.1f}%)")
+            bar = "█" * int(pct / 2)
+            logger.info(f"   {domain:12} : {count:,} ({pct:5.1f}%) {bar}")
 
-        logger.info(f"\n📄 Par source:")
+        logger.info(f"\n📄 RÉPARTITION PAR SOURCE")
         for source, count in sorted(sources.items(), key=lambda x: -x[1]):
             pct = count / len(self.documents) * 100
-            logger.info(f"   {source}: {count} ({pct:.1f}%)")
+            logger.info(f"   {source:40} : {count:,} ({pct:5.1f}%)")
+
+        if dates_by_year:
+            logger.info(f"\n📅 RÉPARTITION TEMPORELLE PAR ANNÉE")
+            for year in sorted(dates_by_year.keys(), reverse=True)[:10]:
+                count = dates_by_year[year]
+                pct = count / len(self.documents) * 100
+                bar = "█" * int(pct / 2)
+                logger.info(f"   {year} : {count:,} ({pct:5.1f}%) {bar}")
+
+        if dates_by_month:
+            logger.info(f"\n📆 DERNIERS MOIS (Top 10)")
+            for month in sorted(dates_by_month.keys(), reverse=True)[:10]:
+                count = dates_by_month[month]
+                logger.info(f"   {month} : {count:,} documents")
 
         if self.embeddings is not None:
             size_mb = self.embeddings.nbytes / (1024 * 1024)
-            logger.info(f"\n💾 Taille embeddings: {size_mb:.1f} MB")
+            size_gb = size_mb / 1024
+            logger.info(f"\n💾 EMBEDDINGS")
             logger.info(f"   Dimension: {self.embeddings.shape[1]}")
+            logger.info(f"   Taille mémoire: {size_mb:.1f} MB ({size_gb:.2f} GB)")
+            logger.info(f"   Format: float32")
 
-        # Estimer le coût
-        total_tokens = sum(len(doc["text"].split()) * 1.3 for doc in self.documents)
-        cost = (total_tokens / 1000) * self.config.embedding_cost_per_1k
-        logger.info(f"\n💰 Coût estimé embeddings: ${cost:.4f}")
+        # Taille de l'index FAISS
+        if self.config.index_path.exists():
+            index_size_mb = self.config.index_path.stat().st_size / (1024 * 1024)
+            logger.info(f"\n📦 INDEX FAISS")
+            logger.info(f"   Fichier: {self.config.index_path.name}")
+            logger.info(f"   Taille: {index_size_mb:.1f} MB")
+
+        if self.config.metadata_path.exists():
+            metadata_size_mb = self.config.metadata_path.stat().st_size / (1024 * 1024)
+            logger.info(f"\n📋 MÉTADONNÉES")
+            logger.info(f"   Fichier: {self.config.metadata_path.name}")
+            logger.info(f"   Taille: {metadata_size_mb:.1f} MB")
+
+        logger.info(f"\n💰 COÛTS")
+        logger.info(f"   Coût embeddings: ${self.total_cost:.4f}")
+        logger.info(f"   Modèle: {self.config.embedding_model}")
+        logger.info(f"   Prix/1K tokens: ${self.config.embedding_cost_per_1k}")
+
+        if self.start_time:
+            total_time = time.time() - self.start_time
+            logger.info(f"\n⏱️  PERFORMANCE")
+            logger.info(f"   Temps total: {total_time/60:.1f} minutes ({total_time/3600:.2f} heures)")
+            if self.embedding_time > 0:
+                logger.info(f"   Temps embeddings: {self.embedding_time/60:.1f} minutes")
+                logger.info(f"   Vitesse moyenne: {len(self.documents)/self.embedding_time:.0f} docs/sec")
+            logger.info(f"   RAM max utilisée: {psutil.Process().memory_info().rss / (1024**3):.1f} GB")
+
+        logger.info("\n" + "=" * 80)
 
 
 def main():
-    """Point d'entrée principal."""
-    logger.info("=" * 60)
-    logger.info("🔧 OpenDataCopilot - Indexation RAG Basique")
-    logger.info("=" * 60)
+    """Point d'entrée principal - Indexation COMPLÈTE sur VM puissante."""
+    logger.info("=" * 80)
+    logger.info("🚀 OpenDataCopilot - INDEXATION COMPLÈTE (VM 128 CPU / 376 GB RAM)")
+    logger.info("=" * 80)
+
+    # Info système
+    logger.info(f"\n💻 Configuration système:")
+    logger.info(f"   CPU: {psutil.cpu_count()} cœurs")
+    logger.info(f"   RAM totale: {psutil.virtual_memory().total / (1024**3):.1f} GB")
+    logger.info(f"   RAM disponible: {psutil.virtual_memory().available / (1024**3):.1f} GB")
 
     config = RAGBasicConfig()
     indexer = DataIndexer(config)
+    indexer.start_time = time.time()
 
-    # Charger les données - INDEXATION COMPLÈTE
-    # sample_size=None pour indexer tout le corpus
+    # Charger les données - INDEXATION COMPLÈTE (453K documents)
+    logger.info(f"\n{'='*80}")
+    logger.info("📂 PHASE 1 : Chargement des données")
+    logger.info(f"{'='*80}")
     num_docs = indexer.load_all_data(sample_size=None)
 
     if num_docs == 0:
         logger.error("❌ Aucun document chargé")
         return 1
 
-    # Générer les embeddings
-    indexer.generate_embeddings(batch_size=100)
+    # Générer les embeddings - BATCHES DE 1000
+    logger.info(f"\n{'='*80}")
+    logger.info("🧮 PHASE 2 : Génération des embeddings")
+    logger.info(f"{'='*80}")
+    indexer.generate_embeddings(batch_size=1000)
 
     # Créer l'index FAISS
+    logger.info(f"\n{'='*80}")
+    logger.info("📦 PHASE 3 : Création de l'index FAISS")
+    logger.info(f"{'='*80}")
     indexer.create_faiss_index()
 
-    # Afficher les stats
+    # Afficher les stats complètes
     indexer.print_stats()
 
-    logger.info("\n✅ Indexation terminée!")
+    total_time = time.time() - indexer.start_time
+    logger.info("\n" + "=" * 80)
+    logger.info(f"✅ INDEXATION TERMINÉE EN {total_time/60:.1f} MINUTES!")
+    logger.info("=" * 80)
+
     return 0
 
 
