@@ -78,6 +78,14 @@ data/processed/*.db
 data/processed/*.sqlite
 data/processed/*.parquet
 
+# Index FAISS (trop volumineux pour GitHub)
+data/vectorstore/
+*.faiss
+*.index
+
+# Fichiers de résultats (volumineux)
+experiments/*/results/*.json
+evaluation/results/
 # Keep processed directory structure
 !data/processed/.gitkeep
 
