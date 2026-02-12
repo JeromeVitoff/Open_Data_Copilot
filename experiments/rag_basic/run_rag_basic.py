@@ -448,9 +448,33 @@ def main():
 
     # Chemins
     config = RAGBasicConfig()
-    questions_path = PROJECT_ROOT / "evaluation" / "datasets" / "questions_annotees.json"
+
+    # Supporter le dataset enrichi via argument --enriched
+    use_enriched = "--enriched" in sys.argv
+    if use_enriched:
+        questions_path = PROJECT_ROOT / "evaluation" / "datasets" / "questions_annotees_enrichi.json"
+    else:
+        questions_path = PROJECT_ROOT / "evaluation" / "datasets" / "questions_annotees.json"
+
     baseline_path = PROJECT_ROOT / "experiments" / "baseline" / "results" / "baseline_report.json"
-    report_path = config.results_dir / "rag_basic_report.json"
+
+    # Déterminer la taille de l'index pour nommer le rapport
+    index_size_label = ""
+    if config.metadata_path.exists():
+        try:
+            import json as _json
+            _meta = _json.loads(config.metadata_path.read_text(encoding="utf-8"))
+            n_docs = len(_meta.get("documents", []))
+            if n_docs > 100_000:
+                index_size_label = f"_{n_docs // 1000}k"
+            elif n_docs > 10_000:
+                index_size_label = f"_{n_docs // 1000}k"
+            print(f"   📦 Index détecté: {n_docs:,} documents")
+        except Exception:
+            pass
+
+    enriched_label = "_enrichi" if use_enriched else ""
+    report_path = config.results_dir / f"rag_basic{index_size_label}{enriched_label}_report.json"
 
     # Vérifier les fichiers
     if not questions_path.exists():
