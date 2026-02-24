@@ -63,6 +63,88 @@ def print_banner() -> None:
     print(banner)
 
 
+def run_odisse_pipeline(force: bool = False) -> dict[str, Any]:
+    """
+    Exécute le pipeline de téléchargement ODISSE (Santé publique France).
+
+    Args:
+        force: Force le re-téléchargement
+
+    Returns:
+        Résultats du pipeline
+    """
+    logger.info("")
+    logger.info("╔" + "═" * 58 + "╗")
+    logger.info("║  PIPELINE ODISSE (Santé publique France)                 ║")
+    logger.info("╚" + "═" * 58 + "╝")
+
+    try:
+        from data.pipelines.fetch_odisse import download_all
+
+        results = download_all(force=force)
+        return {
+            "status": "success",
+            "pipeline": "odisse",
+            "downloaded": len(results.get("success", [])),
+            "skipped": len(results.get("skipped", [])),
+            "failed": len(results.get("failed", [])),
+            "total_records": results.get("stats", {}).get("total_records", 0),
+            "details": results,
+        }
+    except ImportError as e:
+        logger.error(f"Erreur d'import: {e}")
+        return {"status": "error", "pipeline": "odisse", "error": str(e)}
+    except Exception as e:
+        logger.error(f"Erreur pipeline ODISSE: {e}")
+        return {"status": "error", "pipeline": "odisse", "error": str(e)}
+
+
+def run_airparif_history_pipeline(
+    force: bool = False,
+    years: list[int] | None = None,
+    aggregate_only: bool = True,
+) -> dict[str, Any]:
+    """
+    Exécute le pipeline de téléchargement Airparif historiques 2020-2023.
+
+    Args:
+        force: Force le re-téléchargement
+        years: Années cibles (défaut: 2020-2023)
+        aggregate_only: Télécharger uniquement les fichiers agrégés
+
+    Returns:
+        Résultats du pipeline
+    """
+    logger.info("")
+    logger.info("╔" + "═" * 58 + "╗")
+    logger.info("║  PIPELINE AIRPARIF HISTORIQUES 2020-2023                 ║")
+    logger.info("╚" + "═" * 58 + "╝")
+
+    try:
+        from data.pipelines.fetch_airparif_history import download_all
+
+        results = download_all(
+            years=years or [2020, 2021, 2022, 2023],
+            force=force,
+            aggregate_only=aggregate_only,
+        )
+        return {
+            "status": "success",
+            "pipeline": "airparif_history",
+            "downloaded": len(results.get("success", [])),
+            "skipped": len(results.get("skipped", [])),
+            "failed": len(results.get("failed", [])),
+            "total_records": results.get("stats", {}).get("total_records", 0),
+            "details": results,
+        }
+    except ImportError as e:
+        logger.error(f"Erreur d'import: {e}")
+        return {"status": "error", "pipeline": "airparif_history", "error": str(e)}
+    except Exception as e:
+        logger.error(f"Erreur pipeline Airparif historiques: {e}")
+        return {"status": "error", "pipeline": "airparif_history", "error": str(e)}
+
+
 def run_sante_pipeline(force: bool = False, priority_only: bool = True) -> dict[str, Any]:
     """
     Exécute le pipeline de téléchargement des données de santé.
@@ -239,8 +321,10 @@ def print_summary(results: dict[str, Any]) -> None:
 
     logger.info("")
     logger.info("  Données stockées dans:")
-    logger.info(f"    - Santé:     {DATA_DIR / 'raw' / 'sante'}")
-    logger.info(f"    - Pollution: {DATA_DIR / 'raw' / 'pollution'}")
+    logger.info(f"    - Santé:             {DATA_DIR / 'raw' / 'sante'}")
+    logger.info(f"    - Santé ODISSE:      {DATA_DIR / 'raw' / 'sante_odisse'}")
+    logger.info(f"    - Pollution:         {DATA_DIR / 'raw' / 'pollution'}")
+    logger.info(f"    - Airparif hist:     {DATA_DIR / 'raw' / 'pollution_airparif_hist'}")
 
 
 def main() -> int:
@@ -263,6 +347,31 @@ Exemples:
         "--force", "-f",
         action="store_true",
         help="Force le re-téléchargement de tous les fichiers",
+    )
+    parser.add_argument(
+        "--odisse",
+        action="store_true",
+        help="Télécharge les données ODISSE (Santé publique France)",
+    )
+    parser.add_argument(
+        "--odisse-only",
+        action="store_true",
+        help="Télécharge uniquement les données ODISSE",
+    )
+    parser.add_argument(
+        "--airparif-history",
+        action="store_true",
+        help="Télécharge les données Airparif historiques 2020-2023",
+    )
+    parser.add_argument(
+        "--airparif-history-only",
+        action="store_true",
+        help="Télécharge uniquement les données Airparif historiques",
+    )
+    parser.add_argument(
+        "--all-new",
+        action="store_true",
+        help="Télécharge TOUTES les nouvelles sources (ODISSE + Airparif hist)",
     )
     parser.add_argument(
         "--sante-only",
@@ -315,16 +424,29 @@ Exemples:
 
     # Exécuter les pipelines
     try:
-        if not args.pollution_only:
+        run_all_new = args.all_new
+
+        # Pipelines sources existantes
+        if not args.pollution_only and not args.odisse_only and not args.airparif_history_only:
             results["sante"] = run_sante_pipeline(
                 force=args.force,
                 priority_only=not args.all_datasets,
             )
 
-        if not args.sante_only:
+        if not args.sante_only and not args.odisse_only and not args.airparif_history_only:
             results["pollution"] = run_pollution_pipeline(
                 force=args.force,
                 days=args.days,
+            )
+
+        # Nouvelles sources
+        if args.odisse or args.odisse_only or run_all_new:
+            results["odisse"] = run_odisse_pipeline(force=args.force)
+
+        if args.airparif_history or args.airparif_history_only or run_all_new:
+            results["airparif_history"] = run_airparif_history_pipeline(
+                force=args.force,
+                aggregate_only=True,
             )
 
     except KeyboardInterrupt:

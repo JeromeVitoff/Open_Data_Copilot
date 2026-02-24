@@ -46,8 +46,16 @@ class RAGBasicConfig:
         return self.data_dir / "sante"
 
     @property
+    def sante_odisse_dir(self) -> Path:
+        return self.data_dir / "sante_odisse"
+
+    @property
     def pollution_dir(self) -> Path:
         return self.data_dir / "pollution"
+
+    @property
+    def airparif_hist_dir(self) -> Path:
+        return self.data_dir / "pollution_airparif_hist"
 
     @property
     def vectorstore_dir(self) -> Path:
