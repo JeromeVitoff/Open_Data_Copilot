@@ -311,10 +311,10 @@
       every axis plot/.style={fill=secondary!65, draw=primary!70},
       enlarge x limits=0.08,
     ]
-    \addplot[fill=alert!60, draw=alert!80] coordinates {(1,.300)};
-    \addplot[fill=secondary!65, draw=primary!70] coordinates {(2,.743)(3,.754)};
-    \addplot[fill=orangecol!50, draw=orangecol!80] coordinates {(4,.706)};
-    \addplot[fill=accent!65, draw=accent!80] coordinates {(5,.757)(6,.760)};
+    \addplot[fill=alert,        draw=alert!90]      coordinates {(1,.300)};
+    \addplot[fill=secondary!90, draw=primary]       coordinates {(2,.743)(3,.754)};
+    \addplot[fill=orangecol,    draw=orangecol!90]  coordinates {(4,.706)};
+    \addplot[fill=accent,       draw=accent!90]     coordinates {(5,.757)(6,.760)};
     \end{axis}
   \end{tikzpicture}
 }
@@ -340,20 +340,17 @@
   \textbf{\textcolor{secondary}{4.\ T\^ache $>$ Domaine}} :
   OpenAI g\'en\'eraliste $>$ CamemBERT-bio ($-$78\,\%)
 
-  \includegraphics[width=\linewidth]{assets/tableau_embeddings.png}
-
   \vspace{0.1cm}
   \textbf{\textcolor{secondary}{5.\ RAG = 0\,\% hallucination}} $\cdot$
   \textbf{\textcolor{secondary}{6.\ 20$\to$70 questions}} r\'ev\`ele les vraies performances
 
-  \vspace{0.3cm}
-  %% Deux captures côte à côte (légèrement plus grandes qu'avant)
-  \begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
-    \includegraphics[width=\linewidth]{assets/06_question_sante_covid.png} &
-    \includegraphics[width=\linewidth]{assets/03_temps_reel_air.png} \\
-    \centering\small\textit{Sant\'e historique} &
-    \centering\small\textit{Pollution temps r\'eel} \\
-  \end{tabular}
+  \vspace{0.35cm}
+  \includegraphics[width=\linewidth]{assets/06_question_sante_covid.png}
+  \par{\small\textit{Sant\'e historique -- COVID hospitalisations}}
+
+  \vspace{0.25cm}
+  \includegraphics[width=\linewidth]{assets/03_temps_reel_air.png}
+  \par{\small\textit{Qualit\'e de l'air temps r\'eel -- Paris}}
 }
 
 
