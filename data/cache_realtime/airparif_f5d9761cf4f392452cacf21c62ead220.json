@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-03-26T13:08:38.962658",
+  "api": "airparif",
+  "params": {
+    "city": "Paris",
+    "insee": "75056"
+  },
+  "data": {
+    "text": "Le 2026-03-26, à Paris: indice de qualité de l'air : Moyen: NO2 Bon, O3 Moyen, PM10 Bon, PM2.5 Bon, SO2 Bon.",
+    "metadata": {
+      "source": "Airparif",
+      "date": "2026-03-26",
+      "city": "Paris",
+      "insee_code": "75056",
+      "type": "pollution_prevision",
+      "is_realtime": true,
+      "indice": "Moyen",
+      "source_type": "realtime"
+    }
+  }
+}
