@@ -1,5 +1,5 @@
 %% ============================================================
-%% OpenDataCopilot -- Poster scientifique A0 portrait v2
+%% OpenDataCopilot -- Poster scientifique A0 portrait v4
 %% Master 2 Data Science MIASHS -- Université Paul Valéry Montpellier
 %% ============================================================
 \documentclass[a0paper,portrait,25pt]{tikzposter}
@@ -21,7 +21,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
-\usepackage{colortbl}   % \rowcolor dans les tableaux
+\usepackage{colortbl}
 
 %% ── Boîtes colorées ─────────────────────────────────────────
 \usepackage{tcolorbox}
@@ -35,7 +35,6 @@
 \definecolor{alert}{RGB}{231,76,60}
 \definecolor{orangecol}{RGB}{230,126,34}
 \definecolor{lightbg}{RGB}{248,249,250}
-%% Couleurs lignes tableau
 \definecolor{rowred}{RGB}{253,235,235}
 \definecolor{rowblue}{RGB}{232,244,253}
 \definecolor{rowgreen}{RGB}{232,250,237}
@@ -45,17 +44,35 @@
 %% ── Divers ──────────────────────────────────────────────────
 \usepackage{amssymb}
 \usepackage{enumitem}
-\usepackage{eso-pic}   % logo hors du bloc titre
 \setlist[itemize]{leftmargin=1.4em, itemsep=0.15em, topsep=0.3em}
 
 %% ── Thème tikzposter ────────────────────────────────────────
 \usetheme{Simple}
 \usecolorstyle[colorOne=primary, colorTwo=secondary, colorThree=accent]{Default}
 \tikzposterlatexaffectionproofoff
-%% Fond blanc
 \colorlet{backgroundcolor}{secondary!8}
-%% Titres des blocks en noir (visible sur fond blanc)
-\colorlet{blocktitlefgcolor}{black}
+
+%% ── Style blocks avec cadres colorés ────────────────────────
+\defineblockstyle{EncadreCouleur}{
+  titlewidthscale=1, bodywidthscale=1, titleleft,
+  titleoffsetx=0pt, titleoffsety=0pt,
+  bodyoffsetx=0pt, bodyoffsety=0pt,
+  bodyverticalshift=0pt, roundedcorners=5, linewidth=3pt,
+  titleinnersep=8pt, bodyinnersep=10pt
+}{
+  \draw[color=blocktitlebgcolor, fill=blocktitlebgcolor, rounded corners=5pt]
+       (blocktitle.south west) rectangle (blocktitle.north east);
+  \draw[color=blocktitlebgcolor, fill=blockbodybgcolor,
+        rounded corners=5pt, line width=3pt]
+       (blockbody.south west) rectangle (blockbody.north east);
+}
+\useblockstyle{EncadreCouleur}
+
+%% Couleurs par défaut : bleu foncé titre, blanc corps
+\colorlet{blocktitlebgcolor}{primary}
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blockbodybgcolor}{white}
+\colorlet{blockbodyfgcolor}{black}
 
 %% ── Styles TikZ globaux ─────────────────────────────────────
 \tikzset{
@@ -65,7 +82,7 @@
   arr/.style={-{Stealth[length=5pt,width=4pt]}, thick, color=primary!70},
 }
 
-%% ── Style tcolorbox réutilisable ────────────────────────────
+%% ── Styles tcolorbox ────────────────────────────────────────
 \tcbset{
   badge/.style={
     colback=#1!15, colframe=#1, boxrule=1.5pt,
@@ -93,22 +110,30 @@
 
 %% ============================================================
 \begin{document}
-%% Logo coin haut-gauche, hors du bloc titre
-\AddToShipoutPicture*{%
-  \AtPageUpperLeft{%
-    \hspace{1.5cm}\raisebox{-8cm}{%
-      \includegraphics[height=6.5cm]{assets/logo_umpv.png}%
-    }%
-  }%
+\settitle{%
+  \centering
+  \begin{tabular}{@{}l@{\hspace{2cm}}c@{}}
+    \includegraphics[height=5.5cm]{assets/logo_umpv.png} &
+    \parbox{0.78\linewidth}{\centering
+      \color{titlefgcolor}
+      {\large\textbf{OpenDataCopilot : Chatbot RAG Multi-Domaines}}\\[0.4em]
+      {\normalsize Sant\'e Publique \& Pollution Atmosph\'erique --
+       Comparaison de 4~Architectures RAG, 3~LLMs et 4~Embeddings}\\[0.6em]
+      {\small J\'er\^ome ADJIMON}\\[0.2em]
+      {\small Master 2 Data Science MIASHS --
+       Universit\'e Paul Val\'ery Montpellier~3 \quad
+       jerome.vitoff@etu.umontpellier.fr}
+    }
+  \end{tabular}%
 }
 \maketitle
 
 \begin{columns}
 
 %% ============================================================
-%% COLONNE 1 — 22%
+%% COLONNE 1 — 20% : INTRODUCTION + MÉTHODOLOGIE ARCHITECTURES
 %% ============================================================
-\column{0.22}
+\column{0.20}
 
 \block{1.\ Contexte \& Enjeux}{
   \centering
@@ -122,15 +147,15 @@
     \draw[arr,dashed] (doc)--(ret); \draw[arr] (llm)--(rep);
   \end{tikzpicture}
 
-  \vspace{0.5cm}\raggedright
+  \vspace{0.4cm}\raggedright
   \textbf{Probl\'ematique :}
   \begin{itemize}
     \item Donn\'ees publiques h\'et\'erog\`enes (sant\'e + air)
-    \item Tol\'erance z\'ero aux hallucinations (contexte sant\'e)
+    \item Tol\'erance z\'ero aux hallucinations
     \item N\'ecessit\'e de donn\'ees temps r\'eel
   \end{itemize}
 
-  \vspace{0.4cm}
+  \vspace{0.3cm}
   \begin{tabularx}{\linewidth}{@{}lX@{}}
     \textbf{Sources}   & SPF, ODISSE, Airparif, OpenAQ \\[0.2em]
     \textbf{P\'eriode} & 2019--2023 + temps r\'eel \\[0.2em]
@@ -145,19 +170,19 @@
     \toprule
     \textbf{Technique} & \textbf{Avantage} \\
     \midrule
-    Dense (FAISS)    & S\'emantique contextuelle \\[0.2em]
-    Sparse (BM25)    & Correspondance mots-cl\'es \\[0.2em]
-    \textbf{Hybride} & Combin\'e -- notre choix \\[0.2em]
+    Dense (FAISS)    & S\'emantique contextuelle \\[0.15em]
+    Sparse (BM25)    & Correspondance mots-cl\'es \\[0.15em]
+    \textbf{Hybride} & Combin\'e -- notre choix \\[0.15em]
     Reranking        & Pr\'ecision accrue \\
     \bottomrule
   \end{tabularx}
 
-  \vspace{0.45cm}
+  \vspace{0.35cm}
   \textbf{Positionnement :} Aucun travail ant\'erieur ne compare
-  syst\'ematiquement architectures RAG \emph{et} LLMs sur donn\'ees
-  sant\'e publique fran\c{c}aises open data.
+  syst\'ematiquement RAG \emph{et} LLMs sur donn\'ees sant\'e
+  publique fran\c{c}aises open data.
 
-  \vspace{0.4cm}
+  \vspace{0.3cm}
   \textbf{Contribution :}
   \begin{itemize}
     \item 4 architectures valid\'ees / 70 questions
@@ -167,39 +192,47 @@
   \end{itemize}
 }
 
-
-%% ============================================================
-%% COLONNE 2 — 26%
-%% ============================================================
-\column{0.26}
-
-\block{3.\ M\'ethodologie}{
+\block{3.\ M\'ethodologie --- Architectures \& Mod\`eles}{
   \centering
   \begin{tikzpicture}[node distance=0.72cm]
     \node[rbox, fill=alert!25] (b1)
-      {\textbf{1. Baseline}\\[0.12em]\small LLM seul, sans contexte};
+      {\textbf{1. Baseline}\\[0.1em]\small LLM seul, sans contexte};
     \node[rbox, fill=secondary!25, below=of b1] (b2)
-      {\textbf{2. RAG Basic}\\[0.12em]\small FAISS dense + GPT-3.5};
+      {\textbf{2. RAG Basic}\\[0.1em]\small FAISS dense + GPT-3.5};
     \node[rbox, fill=accent!25, below=of b2] (b3)
-      {\textbf{3. RAG Optimis\'e}\\[0.12em]\small Hybride BM25+FAISS + Reranking};
+      {\textbf{3. RAG Optimis\'e}\\[0.1em]\small BM25+FAISS + Reranking};
     \node[rbox, fill=orangecol!25, below=of b3] (b4)
-      {\textbf{4. RAG Sp\'ecialis\'e}\\[0.12em]\small Embeddings m\'edicaux (CamemBERT)};
+      {\textbf{4. RAG Sp\'ecialis\'e}\\[0.1em]\small CamemBERT m\'edical};
     \draw[arr] (b1)--(b2); \draw[arr] (b2)--(b3); \draw[arr] (b3)--(b4);
   \end{tikzpicture}
 
-  \vspace{0.45cm}\raggedright
+  \vspace{0.5em}\raggedright
   \textbf{Mod\`eles test\'es :}
   \begin{itemize}
-    \item \textit{Embeddings :} OpenAI \texttt{text-embedding-3-small},
+    \item \textit{Embeddings :} OpenAI \texttt{text-emb-3-small},
           Sentence-CamemBERT, Solon, CamemBERT-bio
     \item \textit{LLMs :} GPT-3.5-turbo, Mistral~7B (Ollama),
-          Llama3~8B (Ollama), BioMistral~7B
-    \item \textit{Reranker :} cross-encoder MiniLM-L-6
+          Llama3~8B (Ollama)\ldots\ {\small\textit{(suite col.\,2)}}
+  \end{itemize}
+}
+
+
+%% ============================================================
+%% COLONNE 2 — 27% : MÉTHODOLOGIE DÉTAILS + DONNÉES + RÉSULTATS
+%% ============================================================
+\column{0.27}
+
+\block{3.\ M\'ethodologie --- Mod\`eles \& Protocole}{
+  \textbf{Mod\`eles test\'es (suite) :}
+  \begin{itemize}
+    \item \textit{LLMs (suite) :} BioMistral~7B
+    \item \textit{Reranker :} cross-encoder MiniLM-L-6-v2
   \end{itemize}
 
-  \vspace{0.3cm}
-  \textbf{Protocole :} 70 questions $\times$ 4 architectures,
-  \'evaluation automatis\'ee : qualit\'e, latence, co\^ut, hallucinations.
+  \vspace{0.4em}
+  \textbf{Protocole :} 70 questions stratifi\'ees $\times$ 4 architectures,
+  \'evaluation automatis\'ee sur qualit\'e (utilit\'e jury), pertinence
+  FAISS, taux d'hallucination, latence et co\^ut par question.
 }
 
 \block{4.\ Corpus \& \'Evaluation}{
@@ -221,54 +254,27 @@
   \vspace{0.2cm}
   \textbf{Total : 1\,222\,802 documents (2019--2023)}
 
-  \vspace{0.4cm}\raggedright
+  \vspace{0.35cm}\raggedright
   \begin{tabularx}{\linewidth}{@{}Xc@{}}
     \toprule
     \textbf{Cat\'egorie de questions} & \textbf{N} \\
     \midrule
-    Sant\'e (COVID, vaccination, \'epid\'emio.)  & 30 \\[0.12em]
-    Qualit\'e de l'air (NO$_2$, PM$_{10}$, O$_3$) & 20 \\[0.12em]
-    Corr\'elations sant\'e--pollution             & 20 \\
+    Sant\'e (COVID, vaccination, \'epid\'emio.)    & 30 \\[0.1em]
+    Qualit\'e de l'air (NO$_2$, PM$_{10}$, O$_3$) & 20 \\[0.1em]
+    Corr\'elations sant\'e--pollution              & 20 \\
     \midrule
-    \textbf{Total}                               & \textbf{70} \\
+    \textbf{Total}                                & \textbf{70} \\
     \bottomrule
   \end{tabularx}
 
-  \vspace{0.3cm}
+  \vspace{0.25cm}
   \textbf{M\'etriques :} Qualit\'e (utilit\'e jury), pertinence FAISS,
   taux d'hallucination, latence, co\^ut/question.
 }
 
-\block{8.\ \'Evaluation Critique}{
-  \textcolor{accent}{\textbf{R\'eussites :}}
-  \begin{itemize}
-    \item Comparaison rigoureuse 4 architectures / 3 LLMs
-    \item 6 d\'ecouvertes scientifiques valid\'ees
-    \item 0\,\% hallucination sur toutes architectures
-    \item Prototype hybride temps r\'eel fonctionnel
-  \end{itemize}
-
-  \textcolor{orangecol}{\textbf{Difficult\'es :}}
-  \begin{itemize}
-    \item Bug Git : 2.65\,GB $\to$ 11\,MB (BFG, r\'esolu)
-    \item Sp\'ecialisation m\'edicale inefficace ($-$5\,\%)
-  \end{itemize}
-
-  \textcolor{secondary}{\textbf{Apprentissages :}}
-  Architecture RAG, \'evaluation LLM, Git avanc\'e,
-  APIs open data, infrastructure Ollama locale.
-}
-
-
-%% ============================================================
-%% COLONNE 3 — 26%
-%% ============================================================
-\column{0.26}
-
 \block{5.\ R\'esultats -- Comparaison}{
 
   \centering
-  %%  Tableau avec lignes colorées
   \setlength{\arrayrulewidth}{0.6pt}
   \begin{tabular}{@{}lcccc@{}}
     \toprule
@@ -295,7 +301,6 @@
   \end{tabular}
 
   \vspace{0.4cm}
-  %% Badge 0% hallucination
   \begin{tcolorbox}[badge=accent, width=\linewidth]
     \centering\large
     \textbf{Hallucinations : 0\,\%} \quad $|$ \quad
@@ -304,29 +309,36 @@
   \end{tcolorbox}
 
   \vspace{0.3cm}
-  \begin{tikzpicture}
-    \begin{axis}[
-      ybar,
-      width=12.5cm, height=7cm,
-      ylabel={Score qualit\'e},
-      ylabel style={font=\small},
-      xtick={1,2,3,4,5,6},
-      xticklabels={Baseline, Basic, Optimis\'e, Sp\'ecialis\'e, Mistral, Llama3},
-      xticklabel style={rotate=40, anchor=east, font=\small},
-      yticklabel style={font=\small},
-      nodes near coords, nodes near coords style={font=\tiny, rotate=90, anchor=west},
-      ymin=0, ymax=0.9,
-      bar width=0.75cm,
-      every axis plot/.style={fill=secondary!65, draw=primary!70},
-      enlarge x limits=0.08,
-    ]
-    \addplot[fill=alert,        draw=alert!90]      coordinates {(1,.300)};
-    \addplot[fill=secondary!90, draw=primary]       coordinates {(2,.743)(3,.754)};
-    \addplot[fill=orangecol,    draw=orangecol!90]  coordinates {(4,.706)};
-    \addplot[fill=accent,       draw=accent!90]     coordinates {(5,.757)(6,.760)};
-    \end{axis}
-  \end{tikzpicture}
+  \includegraphics[width=0.96\linewidth]{assets/graph_quality_bars.png}
 }
+
+\block{8.\ \'Evaluation Critique}{
+  \textcolor{accent}{\textbf{R\'eussites :}}
+  \begin{itemize}
+    \item Comparaison rigoureuse 4 architectures / 3 LLMs
+    \item 6 d\'ecouvertes scientifiques valid\'ees
+    \item 0\,\% hallucination sur toutes architectures
+    \item Prototype hybride temps r\'eel fonctionnel
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \textcolor{orangecol}{\textbf{Difficult\'es :}}
+  \begin{itemize}
+    \item Bug Git : 2.65\,GB $\to$ 11\,MB (BFG, r\'esolu)
+    \item Sp\'ecialisation m\'edicale inefficace ($-$5\,\%)
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \textcolor{secondary}{\textbf{Apprentissages :}}
+  Architecture RAG, \'evaluation LLM, Git avanc\'e,
+  APIs open data, infrastructure Ollama locale.
+}
+
+
+%% ============================================================
+%% COLONNE 3 — 27% : DÉCOUVERTES SCIENTIFIQUES
+%% ============================================================
+\column{0.27}
 
 \block{6.\ D\'ecouvertes Scientifiques}{
 
@@ -353,25 +365,51 @@
 
   \vspace{0.1cm}
   \textbf{\textcolor{secondary}{5.\ RAG = 0\,\% hallucination}} $\cdot$
-  \textbf{\textcolor{secondary}{6.\ 20$\to$70 questions}} r\'ev\`ele les vraies performances
+  \textbf{\textcolor{secondary}{6.\ 20$\to$70 questions}} r\'ev\`ele
+  les vraies performances
 
-  \vspace{0.3cm}
-  \begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
-    \includegraphics[width=\linewidth]{assets/06_question_sante_covid.png} &
-    \includegraphics[width=\linewidth]{assets/03_temps_reel_air.png} \\
-    \centering\small\textit{Sant\'e historique} &
-    \centering\small\textit{Pollution temps r\'eel} \\
-  \end{tabular}
+  \vspace{1.5em}\centering
+  \textbf{D\'emonstration Syst\`eme}
+
+  \vspace{0.8em}
+
+  \includegraphics[width=\linewidth]{assets/06_question_sante_covid.png}
+
+  \vspace{0.3em}
+  \small\textit{Sant\'e historique}
+
+  \vspace{1.5em}
+
+  \includegraphics[width=\linewidth]{assets/03_temps_reel_air.png}
+
+  \vspace{0.3em}
+  \small\textit{Pollution temps r\'eel -- \^Ile-de-France}
+
+  \vspace{1.5em}
+
+  \begin{tcolorbox}[colback=secondary!5, colframe=secondary!40, boxrule=1pt, arc=3pt]
+    \small
+    \textbf{Fiabilit\'e syst\`eme :} Interface con\c{c}ue pour fusionner
+    donn\'ees historiques et temps r\'eel sans hallucination.
+    \textbf{0\,\% confabulation} valid\'e sur l'ensemble des tests.
+  \end{tcolorbox}
 }
 
 
 %% ============================================================
-%% COLONNE 4 — 26%
+%% COLONNE 4 — 26% : PROTOTYPE (VEDETTE) + PERSPECTIVES
+%% Couleur verte pour la colonne vedette
 %% ============================================================
+\colorlet{blocktitlebgcolor}{accent}
+\colorlet{blockbodybgcolor}{accent!8}
+
 \column{0.26}
 
 \block{7.\ Prototype Hybride Temps R\'eel}{
-  \centering
+
+  \centering\textbf{\large Architecture Syst\`eme}
+
+  \vspace{0.5em}
   \begin{tikzpicture}[
     node distance=0.75cm and 1.2cm,
     fbox/.style={rectangle, draw=primary!60, fill=secondary!15, rounded corners=3pt,
@@ -391,7 +429,7 @@
     \node[font=\tiny, below=0.04cm of rt]{SPF $\cdot$ Airparif $\cdot$ OpenAQ};
   \end{tikzpicture}
 
-  \vspace{0.3cm}\raggedright
+  \vspace{0.5em}\raggedright
   \begin{tabularx}{\linewidth}{@{}Xcc@{}}
     \toprule
     \textbf{Composant}          & \textbf{Tests} & \textbf{OK} \\
@@ -404,25 +442,33 @@
     \bottomrule
   \end{tabularx}
 
-  \vspace{0.35cm}\centering
-  %% Grande capture : pollution actuelle
-  \includegraphics[width=\linewidth]{assets/05_pollution_actuelle.png}
-  \par{\small\textit{Pollution temps r\'eel -- \^Ile-de-France}}
+  \vspace{1em}\centering
+  \textbf{D\'emonstration Interface}
 
-  \vspace{0.3cm}
-  %% Capture hybride (domaine crois\'e)
-  \includegraphics[width=\linewidth]{assets/07_question_hybride_sante_pollution.png}
-  \par{\small\textit{Fusion sant\'e + pollution (corr\'elation NO$_2$)}}
+  \vspace{0.5em}
 
-  \vspace{0.3cm}
-  %% Badge + capture hors base
+  \includegraphics[width=0.85\linewidth]{assets/05_pollution_actuelle.png}
+
+  \small\textit{Pollution temps r\'eel -- \^Ile-de-France}
+
+  \vspace{1.5em}
+
+  \includegraphics[width=0.85\linewidth]{assets/07_question_hybride_sante_pollution.png}
+
+  \small\textit{Fusion domaines : sant\'e + pollution}
+
+  \vspace{1.5em}
+
   \begin{tcolorbox}[badge=alert, width=\linewidth]
     \centering\small\textbf{Validation 0\,\% hallucination}\\
     Question hors base~$\to$ aveu d'ignorance
   \end{tcolorbox}
-  \vspace{0.2cm}
-  \includegraphics[width=0.95\linewidth]{assets/08_question_hors_base.png}
-  \par{\small\textit{Japon 2024 : syst\`eme honnête, pas de confabulation}}
+
+  \vspace{0.5em}
+
+  \includegraphics[width=0.85\linewidth]{assets/08_question_hors_base.png}
+
+  \small\textit{Japon 2024 : syst\`eme honnête, pas de confabulation}
 }
 
 \block{9.\ Perspectives}{
@@ -434,7 +480,6 @@
   Multi-hop reasoning, extension domaines
 
   \vspace{0.5cm}
-  %% Encadré Système Recommandé
   \begin{tcolorbox}[recommande]
     \centering
     \large\textbf{RAG Optimis\'e + Mistral~7B}\\[0.4em]

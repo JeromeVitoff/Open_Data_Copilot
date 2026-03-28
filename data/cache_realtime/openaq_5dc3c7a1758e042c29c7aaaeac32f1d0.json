@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-26T18:10:16.185870",
+  "timestamp": "2026-03-28T18:20:24.265909",
   "api": "openaq",
   "params": {
     "parameter": "no2",
@@ -7,42 +7,42 @@
   },
   "data": [
     {
-      "text": "Station Place de l'Opéra (Île-de-France), 2026-03-26: NO₂ mass = 28.1 µg/m³",
+      "text": "Station Place de l'Opéra (Île-de-France), 2026-03-28: NO₂ mass = 23.4 µg/m³",
       "metadata": {
         "source": "OpenAQ",
-        "date": "2026-03-26",
+        "date": "2026-03-28",
         "location": "Place de l'Opéra",
         "country": "France",
         "parameter": "no2",
-        "value": 28.1,
+        "value": 23.4,
         "unit": "µg/m³",
         "is_realtime": true,
         "source_type": "realtime"
       }
     },
     {
-      "text": "Station Oysonville (Île-de-France), 2026-03-26: NO₂ mass = 3.7 µg/m³",
+      "text": "Station Oysonville (Île-de-France), 2026-03-28: NO₂ mass = 2.6 µg/m³",
       "metadata": {
         "source": "OpenAQ",
-        "date": "2026-03-26",
+        "date": "2026-03-28",
         "location": "Oysonville",
         "country": "France",
         "parameter": "no2",
-        "value": 3.7,
+        "value": 2.6,
         "unit": "µg/m³",
         "is_realtime": true,
         "source_type": "realtime"
       }
     },
     {
-      "text": "Station PARIS 18eme (Île-de-France), 2026-03-26: NO₂ mass = 17.2 µg/m³",
+      "text": "Station PARIS 18eme (Île-de-France), 2026-03-28: NO₂ mass = 16.7 µg/m³",
       "metadata": {
         "source": "OpenAQ",
-        "date": "2026-03-26",
+        "date": "2026-03-28",
         "location": "PARIS 18eme",
         "country": "France",
         "parameter": "no2",
-        "value": 17.2,
+        "value": 16.7,
         "unit": "µg/m³",
         "is_realtime": true,
         "source_type": "realtime"
