@@ -45,6 +45,7 @@
 %% ── Divers ──────────────────────────────────────────────────
 \usepackage{amssymb}
 \usepackage{enumitem}
+\usepackage{eso-pic}   % logo hors du bloc titre
 \setlist[itemize]{leftmargin=1.4em, itemsep=0.15em, topsep=0.3em}
 
 %% ── Thème tikzposter ────────────────────────────────────────
@@ -92,6 +93,14 @@
 
 %% ============================================================
 \begin{document}
+%% Logo coin haut-gauche, hors du bloc titre
+\AddToShipoutPicture*{%
+  \AtPageUpperLeft{%
+    \hspace{1.5cm}\raisebox{-8cm}{%
+      \includegraphics[height=6.5cm]{assets/logo_umpv.png}%
+    }%
+  }%
+}
 \maketitle
 
 \begin{columns}
@@ -340,17 +349,19 @@
   \textbf{\textcolor{secondary}{4.\ T\^ache $>$ Domaine}} :
   OpenAI g\'en\'eraliste $>$ CamemBERT-bio ($-$78\,\%)
 
+  \includegraphics[width=\linewidth]{assets/tableau_embeddings.png}
+
   \vspace{0.1cm}
   \textbf{\textcolor{secondary}{5.\ RAG = 0\,\% hallucination}} $\cdot$
   \textbf{\textcolor{secondary}{6.\ 20$\to$70 questions}} r\'ev\`ele les vraies performances
 
-  \vspace{0.35cm}
-  \includegraphics[width=\linewidth]{assets/06_question_sante_covid.png}
-  \par{\small\textit{Sant\'e historique -- COVID hospitalisations}}
-
-  \vspace{0.25cm}
-  \includegraphics[width=\linewidth]{assets/03_temps_reel_air.png}
-  \par{\small\textit{Qualit\'e de l'air temps r\'eel -- Paris}}
+  \vspace{0.3cm}
+  \begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
+    \includegraphics[width=\linewidth]{assets/06_question_sante_covid.png} &
+    \includegraphics[width=\linewidth]{assets/03_temps_reel_air.png} \\
+    \centering\small\textit{Sant\'e historique} &
+    \centering\small\textit{Pollution temps r\'eel} \\
+  \end{tabular}
 }
 
 
