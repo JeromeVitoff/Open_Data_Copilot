@@ -103,8 +103,8 @@
   \large\textbf{OpenDataCopilot : Chatbot RAG Multi-Domaines}\\[0.3em]
   \normalsize Sant\'e Publique \& Pollution Atmosph\'erique --
   Comparaison de 4~Architectures RAG, 3~LLMs et 4~Embeddings}}
-\author{\small J\'er\^ome ADJIMON}
-\institute{\small Master 2 Data Science MIASHS --
+\author{\small Adjimmon VITOFFODJI}
+\institute{\small Master 2 MIASHS --
            Universit\'e Paul Val\'ery Montpellier~3 \quad
            jerome.vitoff@etu.umontpellier.fr}
 
@@ -116,13 +116,13 @@
     \includegraphics[height=5.5cm]{assets/logo_umpv.png} &
     \parbox{0.78\linewidth}{\centering
       \color{titlefgcolor}
-      {\large\textbf{OpenDataCopilot : Chatbot RAG Multi-Domaines}}\\[0.4em]
-      {\normalsize Sant\'e Publique \& Pollution Atmosph\'erique --
+      {\LARGE\textbf{OpenDataCopilot : Chatbot RAG Multi-Domaines}}\\[0.4em]
+      {\large Sant\'e Publique \& Pollution Atmosph\'erique --
        Comparaison de 4~Architectures RAG, 3~LLMs et 4~Embeddings}\\[0.6em]
-      {\small J\'er\^ome ADJIMON}\\[0.2em]
-      {\small Master 2 Data Science MIASHS --
-       Universit\'e Paul Val\'ery Montpellier~3 \quad
-       jerome.vitoff@etu.umontpellier.fr}
+      {\normalsize Adjimon VITOFFODJI}\\[0.2em]
+      {\normalsize Master 2 MIASHS --
+       Universit\'e de Montpellier Paul Val\'ery \quad
+       adjimon.vitoffodji@etu.univ-montp3.fr}
     }
   \end{tabular}%
 }
@@ -192,7 +192,7 @@
   \end{itemize}
 }
 
-\block{3.\ M\'ethodologie --- Architectures \& Mod\`eles}{
+\block{3-a.\ M\'ethodologie --- Architectures \& Mod\`eles}{
   \centering
   \begin{tikzpicture}[node distance=0.72cm]
     \node[rbox, fill=alert!25] (b1)
@@ -222,7 +222,7 @@
 %% ============================================================
 \column{0.27}
 
-\block{3.\ M\'ethodologie --- Mod\`eles \& Protocole}{
+\block{3-b.\ M\'ethodologie --- Mod\`eles \& Protocole}{
   \textbf{Mod\`eles test\'es (suite) :}
   \begin{itemize}
     \item \textit{LLMs (suite) :} BioMistral~7B
@@ -324,14 +324,13 @@
   \vspace{0.2cm}
   \textcolor{orangecol}{\textbf{Difficult\'es :}}
   \begin{itemize}
-    \item Bug Git : 2.65\,GB $\to$ 11\,MB (BFG, r\'esolu)
+    \item Problème de RAM, GPU (Résolu utilisé machine virtuelle)
     \item Sp\'ecialisation m\'edicale inefficace ($-$5\,\%)
   \end{itemize}
 
   \vspace{0.2cm}
   \textcolor{secondary}{\textbf{Apprentissages :}}
-  Architecture RAG, \'evaluation LLM, Git avanc\'e,
-  APIs open data, infrastructure Ollama locale.
+  Architecture RAG, \'evaluation LLM, APIs open data, infrastructure Ollama locale.
 }
 
 
@@ -344,27 +343,30 @@
 
   \textbf{\textcolor{secondary}{1.\ Diversit\'e $>$ Volume}} :
   $+$114\,\% docs $=$ $+$18.9\,\% pertinence seulement
+  \vspace{0.5cm}
 
   \includegraphics[width=\linewidth]{assets/graph_diversite.png}
 
-  \vspace{0.1cm}
+  \vspace{0.5cm}
   \textbf{\textcolor{secondary}{2.\ Open-source comp\'etitif}} :
   Mistral~7B $\approx$ GPT-3.5, $\times$500 moins cher
 
-  \vspace{0.1cm}
+  \vspace{0.5cm}
   \textbf{\textcolor{secondary}{3.\ Complexit\'e $\neq$ Performance}} :
-  sur-ing\'enierie $-$6\,\% qualit\'e
+  suring\'enierie $-$6\,\% qualit\'e
+  
+  \vspace{0.5cm}
 
   \includegraphics[width=\linewidth]{assets/graph_complexite.png}
 
-  \vspace{0.1cm}
+  \vspace{0.5cm}
   \textbf{\textcolor{secondary}{4.\ T\^ache $>$ Domaine}} :
   OpenAI g\'en\'eraliste $>$ CamemBERT-bio ($-$78\,\%)
 
   \includegraphics[width=\linewidth]{assets/tableau_embeddings.png}
 
   \vspace{0.1cm}
-  \textbf{\textcolor{secondary}{5.\ RAG = 0\,\% hallucination}} $\cdot$
+  \textbf{\textcolor{secondary}{5.\ RAG = 0\,\% hallucination}} $\cdot$ \\
   \textbf{\textcolor{secondary}{6.\ 20$\to$70 questions}} r\'ev\`ele
   les vraies performances
 
@@ -472,9 +474,7 @@
 }
 
 \block{9.\ Perspectives}{
-  \textbf{Court terme} \textcolor{accent}{(\checkmark)} :
-  Prototype + interface Streamlit\\[0.25em]
-  \textbf{Moyen terme :}
+  \textbf{Court terme :}
   D\'eploiement Docker, fine-tuning Mistral-FR\\[0.25em]
   \textbf{Long terme :}
   Multi-hop reasoning, extension domaines
