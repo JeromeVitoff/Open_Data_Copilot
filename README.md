@@ -1,59 +1,53 @@
 # OpenDataCopilot
 
-**Chatbot RAG intelligent sur données ouvertes françaises - Santé publique & Environnement**
+**Chatbot RAG multi-domaines sur données ouvertes françaises — Santé publique & Pollution atmosphérique**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
+
+> Projet Master 2 Data Science MIASHS — Université Paul Valéry Montpellier 3  
+> Jérôme ADJIMON — jerome.vitoff@etu.umontpellier.fr
 
 ---
 
 ## Description
 
-OpenDataCopilot est un projet de recherche Master 2 Data Science qui combine un chatbot intelligent, une architecture RAG (Retrieval-Augmented Generation), et des données ouvertes françaises sur deux domaines :
+OpenDataCopilot est un chatbot RAG (Retrieval-Augmented Generation) qui permet d'interroger en langage naturel **1 222 802 documents** issus des données ouvertes françaises sur la santé publique et la qualité de l'air. Le projet adopte une démarche comparative rigoureuse entre 4 architectures RAG, 3 LLMs et 4 modèles d'embeddings.
 
-- **Santé publique** : données hospitalières, épidémiologie, démographie médicale
-- **Environnement** : pollution atmosphérique (NO2, PM2.5, O3), qualité de l'air
+### Corpus de données
 
-### Objectif scientifique
-
-Ce projet adopte une **démarche comparative rigoureuse** entre 4 architectures RAG :
-
-| Architecture | Description | Vector Store | Embeddings |
-|-------------|-------------|--------------|------------|
-| **Baseline** | LLM seul sans RAG | - | - |
-| **RAG Basic** | Chunking simple + recherche vectorielle | FAISS | OpenAI ada-002 |
-| **RAG Optimized** | Chunking intelligent + hybrid search + reranking | ChromaDB | OpenAI + BM25 |
-| **RAG Specialized** | Fine-tuning embeddings domaine santé/climat | ChromaDB | SBERT médical |
-
-### Métriques d'évaluation
-
-- Précision et Recall sur questions annotées
-- Taux d'hallucination
-- Citation accuracy (vérification des sources)
-- Latence de réponse
-- Coût API
+| Source | Domaine | Volume |
+|--------|---------|--------|
+| Santé Publique France (SPF) — COVID | Santé | 452 K documents |
+| Airparif | Qualité de l'air Île-de-France | 720 K documents |
+| ODISSE | Épidémiologie | 50 K documents |
+| **Total** | **2019–2023** | **1 222 802 documents** |
 
 ---
 
-## Fonctionnalités
+## Résultats
 
-- Chatbot conversationnel multidomaine (santé + pollution)
-- Croisement automatique des données (ex: pollution → hospitalisations)
-- Citations systématiques des sources officielles
-- Interface utilisateur intuitive (Streamlit)
-- API REST documentée (FastAPI)
-- Pipeline de données automatisé avec cache
-- Dashboard de visualisation temps réel
+### Comparaison des architectures (70 questions annotées)
 
-### Exemples de questions
+| Architecture | Qualité | Latence | Coût total | Hallucinations |
+|-------------|---------|---------|------------|----------------|
+| Baseline (LLM seul) | 0.300 | 1,8 s | $0,011 | 0 % |
+| RAG Basic (FAISS dense) | 0.743 | 2,9 s | $0,091 | 0 % |
+| RAG Optimisé (BM25+FAISS+Rerank) | **0.754** | 5,0 s | $0,103 | 0 % |
+| RAG Spécialisé (multi-domaine) | 0.706 | 9,4 s | $0,117 | 0 % |
+| RAG + Mistral 7B (local) | **0.757** | 4,1 s | ~$0 | 0 % |
+| RAG + Llama3 8B (local) | 0.760 | 4,5 s | ~$0 | 0 % |
 
-```
-"Quel est le taux de pollution NO2 à Paris aujourd'hui ?"
-"Évolution de la grippe cette saison en Île-de-France ?"
-"Lien entre pics de pollution et hospitalisations respiratoires à Montpellier ?"
-"Combien de médecins pour 1000 habitants dans l'Hérault ?"
-```
+**Système recommandé : RAG Optimisé + Mistral 7B** — meilleur rapport qualité/coût, déploiement local RGPD-compliant.
+
+### Découvertes scientifiques
+
+1. **Diversité > Volume** : +114 % de documents n'apporte que +18,9 % de pertinence
+2. **Open-source compétitif** : Mistral 7B ≈ GPT-3.5-turbo, ×500 moins cher
+3. **Complexité ≠ Performance** : la sur-ingénierie (RAG Spécialisé) réduit la qualité de 6 %
+4. **Tâche > Domaine** : OpenAI généraliste surpasse CamemBERT-bio (−78 % de pertinence)
+5. **RAG = 0 % hallucination** : validé sur toutes les architectures et 70 questions
+6. **20 → 70 questions** : l'augmentation du dataset révèle les vraies performances
 
 ---
 
@@ -61,31 +55,104 @@ Ce projet adopte une **démarche comparative rigoureuse** entre 4 architectures 
 
 ```
 OpenDataCopilot/
-├── src/                          # Code source principal
-│   ├── api/                      # FastAPI backend
-│   ├── ui/                       # Streamlit frontend
-│   ├── core/                     # Interfaces RAG communes
-│   ├── config/                   # Configuration Pydantic
-│   └── utils/                    # Utilitaires partagés
-├── experiments/                  # 4 implémentations RAG
-│   ├── baseline/                 # LLM seul
-│   ├── rag_basic/               # RAG simple FAISS
-│   ├── rag_optimized/           # RAG avancé ChromaDB
-│   └── rag_specialized/         # RAG fine-tuné
-├── data/                         # Données
-│   ├── raw/                     # Données brutes
-│   ├── processed/               # Données nettoyées
-│   ├── pipelines/               # Scripts ETL
-│   └── vectorstore/             # Bases vectorielles
-├── evaluation/                   # Benchmarks
-│   ├── datasets/                # Questions annotées
-│   ├── metrics/                 # Scripts métriques
-│   └── results/                 # Résultats
-├── notebooks/                    # Analyses Jupyter
-├── docs/                         # Documentation
-├── tests/                        # Tests pytest
-└── scripts/                      # CLI utilitaires
+├── experiments/                  # 4 architectures RAG comparées
+│   ├── baseline/                 # LLM seul (GPT-3.5-turbo), sans contexte
+│   ├── rag_basic/                # FAISS dense + GPT-3.5 + text-embedding-3-small
+│   ├── rag_optimized/            # BM25 + FAISS hybride + reranking cross-encoder
+│   ├── rag_specialized/          # Détection de domaine + filtrage contextuel
+│   └── rag_specialized_v2/       # Embeddings médicaux (CamemBERT-bio, BioMistral)
+├── realtime/                     # Prototype hybride temps réel
+│   ├── app.py                    # Interface Streamlit
+│   ├── temporal_detector.py      # Détection questions temps réel vs historique
+│   ├── hybrid_rag.py             # Fusion FAISS historique + APIs temps réel
+│   └── cache_manager.py          # Cache (×4 performances)
+├── evaluation/                   # Comparaison des versions
+│   └── compare_all_versions.py
+├── notebooks/                    # Exploration des données
+├── data/                         # Données et rapports de téléchargement
+├── docs/                         # Analyse baseline
+├── poster/                       # Poster scientifique A0 (LaTeX)
+└── soutenance/                   # Supports de soutenance
 ```
+
+---
+
+## Expériences
+
+### 1. Baseline — LLM seul
+
+- **Modèle** : GPT-3.5-turbo, sans contexte RAG
+- **Résultat** : score de qualité 0.30 — le LLM renvoie l'utilisateur vers des sources externes, sans données précises
+
+### 2. RAG Basic
+
+- **Retrieval** : FAISS dense (index 1 222 802 docs)
+- **Embeddings** : `text-embedding-3-small` (OpenAI)
+- **LLM** : GPT-3.5-turbo
+- **Résultat** : qualité 0.743, sources citées 100 %, 0 % hallucination
+
+### 3. RAG Optimisé
+
+- **Retrieval** : recherche hybride BM25 + FAISS (`hybrid_alpha=0.6`), top-20 puis reranking
+- **Reranker** : `cross-encoder/ms-marco-MiniLM-L-6-v2`, top-5 final
+- **Embeddings** : `text-embedding-3-small`
+- **LLM** : GPT-3.5-turbo
+- **Résultat** : qualité 0.754, meilleure architecture GPT-3.5
+
+### 4. RAG Spécialisé
+
+- **Retrieval** : détecteur de domaine (santé / environnement / corrélation), filtrage contextuel, prompts spécialisés par domaine
+- **LLM** : GPT-3.5-turbo
+- **Résultat** : qualité 0.706 — la sur-spécialisation dégrade les performances (−6 % vs RAG Optimisé)
+
+### 5. RAG Spécialisé v2 — Embeddings médicaux
+
+- Test des embeddings Sentence-CamemBERT, Solon, CamemBERT-bio
+- Test de BioMistral 7B (LLM médical)
+- **Résultat** : OpenAI généraliste surpasse CamemBERT-bio (−78 % de pertinence)
+
+### 6. RAG Ollama — LLMs locaux
+
+- **Modèles** : Mistral 7B et Llama3 8B via Ollama local
+- **Résultat** : qualité 0.757 (Mistral) et 0.760 (Llama3), coût quasi nul (~$0.002 total), 0 % hallucination
+
+---
+
+## Prototype hybride temps réel
+
+Le module `realtime/` fusionne données historiques et APIs temps réel :
+
+```
+Question
+   │
+   ▼
+Détecteur temporel (19/19 tests OK)
+   ├── Question historique → FAISS (1,2M docs)
+   └── Question temps réel → 3 APIs (SPF · Airparif · OpenAQ)
+                    │
+                    ▼
+               Fusion + Cache (×4 perf.)
+                    │
+                    ▼
+            LLM (Mistral / GPT) → Réponse sourcée
+```
+
+**Interface** : Streamlit (`realtime/app.py`)
+
+---
+
+## Dataset d'évaluation
+
+70 questions annotées réparties en 3 domaines :
+
+| Catégorie | Questions |
+|-----------|-----------|
+| Santé (COVID, vaccination, épidémiologie) | 30 |
+| Qualité de l'air (NO2, PM10, O3) | 20 |
+| Corrélations santé–pollution | 20 |
+| **Total** | **70** |
+
+**Métriques** : score de qualité (utilité jury), pertinence FAISS, taux d'hallucination, latence, coût/question.
 
 ---
 
@@ -93,22 +160,21 @@ OpenDataCopilot/
 
 ### Prérequis
 
-- Python 3.10 ou supérieur
-- macOS / Linux / Windows
+- Python 3.10+
 - 8 GB RAM minimum
-- Clés API : OpenAI, Airparif (optionnel), OpenAQ (optionnel)
+- Clé API OpenAI
+- [Ollama](https://ollama.ai) pour les LLMs locaux (optionnel)
 
-### Installation rapide
+### Mise en place
 
 ```bash
 # 1. Cloner le repository
-git clone https://github.com/votre-username/OpenDataCopilot.git
-cd OpenDataCopilot
+git clone https://github.com/JeromeVitoff/Open_Data_Copilot.git
+cd Open_Data_Copilot
 
 # 2. Créer l'environnement virtuel
 python -m venv venv
-source venv/bin/activate  # Linux/macOS
-# ou: venv\Scripts\activate  # Windows
+source venv/bin/activate
 
 # 3. Installer les dépendances
 pip install -r requirements.txt
@@ -116,183 +182,73 @@ pip install -r requirements.txt
 # 4. Configurer les variables d'environnement
 cp .env.example .env
 # Éditer .env avec vos clés API
-
-# 5. Télécharger les données initiales
-python -m data.pipelines.download_sante_publique
-
-# 6. Lancer l'application
-python -m scripts.run_app
 ```
 
-### Configuration
-
-Créer un fichier `.env` à la racine :
+### Configuration `.env`
 
 ```env
-# LLM
 OPENAI_API_KEY=sk-...
-
-# APIs données
-AIRPARIF_API_KEY=...
-OPENAQ_API_KEY=...
-
-# Optionnel
-COHERE_API_KEY=...  # Pour reranking
+AIRPARIF_API_KEY=...      # optionnel, pour le temps réel
+OPENAQ_API_KEY=...        # optionnel, pour le temps réel
 ```
 
 ---
 
 ## Utilisation
 
-### Lancer le chatbot (Streamlit)
+### Lancer l'interface Streamlit
 
 ```bash
-streamlit run src/ui/app.py
+streamlit run realtime/app.py
 ```
 
-### Lancer l'API (FastAPI)
+### Exécuter une expérience
 
 ```bash
-uvicorn src.api.main:app --reload --port 8000
+# Baseline
+python experiments/baseline/run_baseline.py
+
+# RAG Basic
+python experiments/rag_basic/run_rag_basic.py
+
+# RAG Optimisé
+python experiments/rag_optimized/run_evaluation.py
+
+# RAG Spécialisé
+python experiments/rag_specialized/run_evaluation.py
+
+# RAG Ollama (nécessite Ollama en local)
+python experiments/rag_ollama/run_evaluation.py
 ```
 
-Documentation API : http://localhost:8000/docs
-
-### Exécuter les benchmarks
+### Comparer les résultats
 
 ```bash
-# Comparer les 4 architectures
-python -m scripts.run_benchmarks --all
-
-# Benchmark spécifique
-python -m scripts.run_benchmarks --architecture rag_optimized
-```
-
-### Notebooks d'exploration
-
-```bash
-jupyter lab notebooks/
+python evaluation/compare_all_versions.py
 ```
 
 ---
 
 ## Sources de données
 
-### Santé publique
-
 | Source | Description | Fréquence |
 |--------|-------------|-----------|
-| [data.gouv.fr](https://www.data.gouv.fr) | Données hospitalières COVID-19 | Quotidien |
-| [Santé Publique France](https://odisse.santepubliquefrance.fr) | Épidémiologie, surveillance | Hebdomadaire |
-| [DREES](https://data.drees.solidarites-sante.gouv.fr) | Démographie médicale | Annuel |
-
-### Environnement / Pollution
-
-| Source | Description | Fréquence |
-|--------|-------------|-----------|
+| [Santé Publique France](https://www.santepubliquefrance.fr) | Données COVID-19, épidémiologie | Hebdomadaire |
+| [ODISSE (SPF)](https://odisse.santepubliquefrance.fr) | Surveillance épidémiologique | Hebdomadaire |
 | [Airparif](https://data-airparif-asso.opendata.arcgis.com) | Qualité air Île-de-France | Horaire |
 | [OpenAQ](https://openaq.org) | Pollution mondiale | Temps réel |
-| [Atmo France](https://www.atmo-france.org) | Indices ATMO nationaux | Quotidien |
-
----
-
-## Développement
-
-### Tests
-
-```bash
-# Tous les tests
-pytest
-
-# Avec couverture
-pytest --cov=src --cov-report=html
-
-# Tests unitaires uniquement
-pytest tests/unit/
-```
-
-### Linting & Formatting
-
-```bash
-# Vérification
-ruff check .
-
-# Correction automatique
-ruff check --fix .
-
-# Formatage
-ruff format .
-```
-
-### Pre-commit hooks
-
-```bash
-pre-commit install
-pre-commit run --all-files
-```
-
----
-
-## Évaluation scientifique
-
-### Dataset d'évaluation
-
-Le fichier `evaluation/datasets/questions_annotees.json` contient 50-100 questions annotées :
-
-```json
-{
-  "id": "Q001",
-  "question": "Quel est le taux de NO2 à Paris aujourd'hui ?",
-  "domain": "pollution",
-  "difficulty": "easy",
-  "expected_sources": ["airparif"],
-  "ground_truth": "...",
-  "requires_realtime": true
-}
-```
-
-### Métriques implémentées
-
-- **Retrieval** : Precision@k, Recall@k, MRR, NDCG
-- **Generation** : ROUGE-L, BERTScore, factual consistency
-- **Hallucination** : % réponses sans source valide
-- **Performance** : latence p50/p95/p99, tokens/seconde
-
----
-
-## Roadmap
-
-- [x] Phase 1 : Structure projet et pipeline données
-- [ ] Phase 2 : Baseline sans RAG
-- [ ] Phase 3 : RAG Basic (FAISS)
-- [ ] Phase 4 : RAG Optimized (ChromaDB + reranking)
-- [ ] Phase 5 : RAG Specialized (fine-tuning)
-- [ ] Phase 6 : Benchmarks comparatifs
-- [ ] Phase 7 : Interface finale et documentation
-
----
-
-## Contribution
-
-Ce projet est développé dans le cadre d'un Master 2 Data Science. Les contributions sont bienvenues :
-
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/amelioration`)
-3. Commit (`git commit -m 'Add: nouvelle fonctionnalité'`)
-4. Push (`git push origin feature/amelioration`)
-5. Ouvrir une Pull Request
 
 ---
 
 ## Licence
 
-MIT License - voir [LICENSE](LICENSE)
+MIT License
 
 ---
 
 ## Auteur
 
-**Jérôme** - Master 2 Data Science
+**Jérôme ADJIMON** — Master 2 Data Science MIASHS, Université Paul Valéry Montpellier 3
 
 ---
 
@@ -301,4 +257,3 @@ MIT License - voir [LICENSE](LICENSE)
 - Santé Publique France pour les données épidémiologiques
 - Airparif pour les données de qualité de l'air
 - OpenAQ pour l'API pollution mondiale
-- LangChain pour le framework RAG
